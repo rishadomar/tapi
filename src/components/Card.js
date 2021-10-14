@@ -1,4 +1,6 @@
 import Result from 'components/Result';
+import Json from 'components/Json';
+import MethodButton from 'components/MethodButton';
 
 const Card = ({ category, apiEntry }) => {
     const uniqueId = `entry-${category}-${apiEntry.name.replace('.', '-')}`;
@@ -26,13 +28,7 @@ const Card = ({ category, apiEntry }) => {
                     Collapse/Show
                 </button>
 
-                <button
-                    onClick={() => executeApi(apiEntry)}
-                    type="button"
-                    className="btn btn-primary"
-                >
-                    {apiEntry.method}
-                </button>
+                <MethodButton onClick={executeApi} apiEntry={apiEntry} />
             </div>
 
             <div
@@ -44,7 +40,7 @@ const Card = ({ category, apiEntry }) => {
                 <div className="card-body">
                     <span>{apiEntry.api}</span>
                     <hr />
-                    <span>{JSON.stringify(apiEntry.expectedResponse)}</span>
+                    <Json title="Expected" entry={apiEntry.expectedResponse} />
                 </div>
             </div>
         </div>
