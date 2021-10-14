@@ -13,10 +13,184 @@
                 "expectedResponse": {
                     "date": "${*}",
                     "planet": "${?}",
-                    "values": ["South Africa", "Canada", "Zimbabwe"]
+                    "values": [
+                        "South Africa",
+                        "Canada",
+                        "Zimbabwe"
+                    ]
                 },
                 "filename": "src/data/chats/getAllChats.json",
                 "name": "getAllChats.json"
+            },
+            {
+                "api": "${env.DOMAIN}/getCountries",
+                "method": "GET",
+                "headers": [
+                    {
+                        "Bearer": "${env.TOKEN}"
+                    }
+                ],
+                "expectedResponse": {
+                    "date": "${*}",
+                    "planet": "${?}",
+                    "values": [
+                        "South Africa",
+                        "Canada",
+                        "Zimbabwe"
+                    ]
+                },
+                "filename": "src/data/chats/getChat.json",
+                "name": "getChat.json"
+            },
+            {
+                "api": "${env.DOMAIN}/getCountries",
+                "method": "GET",
+                "headers": [
+                    {
+                        "Bearer": "${env.TOKEN}"
+                    }
+                ],
+                "expectedResponse": {
+                    "date": "${*}",
+                    "planet": "${?}",
+                    "values": [
+                        "South Africa",
+                        "Canada",
+                        "Zimbabwe"
+                    ]
+                },
+                "filename": "src/data/chats/getChatHistory.json",
+                "name": "getChatHistory.json"
+            },
+            {
+                "api": "${env.DOMAIN}/getCountries",
+                "method": "GET",
+                "headers": [
+                    {
+                        "Bearer": "${env.TOKEN}"
+                    }
+                ],
+                "expectedResponse": {
+                    "date": "${*}",
+                    "planet": "${?}",
+                    "values": [
+                        "South Africa",
+                        "Canada",
+                        "Zimbabwe"
+                    ]
+                },
+                "filename": "src/data/chats/getCountries.json",
+                "name": "getCountries.json"
+            },
+            {
+                "api": "${env.DOMAIN}/getCountries",
+                "method": "GET",
+                "headers": [
+                    {
+                        "Bearer": "${env.TOKEN}"
+                    }
+                ],
+                "expectedResponse": {
+                    "date": "${*}",
+                    "planet": "${?}",
+                    "values": [
+                        "South Africa",
+                        "Canada",
+                        "Zimbabwe"
+                    ]
+                },
+                "filename": "src/data/chats/getProvinces.json",
+                "name": "getProvinces.json"
+            }
+        ]
+    },
+    {
+        "category": "countries",
+        "apis": [
+            {
+                "api": "${env.DOMAIN}/getCountries",
+                "method": "GET",
+                "headers": [
+                    {
+                        "Bearer": "${env.TOKEN}"
+                    }
+                ],
+                "expectedResponse": {
+                    "date": "${*}",
+                    "planet": "${?}",
+                    "values": [
+                        "South Africa",
+                        "Canada",
+                        "Zimbabwe"
+                    ]
+                },
+                "filename": "src/data/countries/getCountries.json",
+                "name": "getCountries.json"
+            },
+            {
+                "api": "${env.DOMAIN}/getCountries",
+                "method": "GET",
+                "headers": [
+                    {
+                        "Bearer": "${env.TOKEN}"
+                    }
+                ],
+                "expectedResponse": {
+                    "date": "${*}",
+                    "planet": "${?}",
+                    "values": [
+                        "South Africa",
+                        "Canada",
+                        "Zimbabwe"
+                    ]
+                },
+                "filename": "src/data/countries/getProvinces.json",
+                "name": "getProvinces.json"
+            }
+        ]
+    },
+    {
+        "category": "users",
+        "apis": [
+            {
+                "api": "${env.DOMAIN}/getCountries",
+                "method": "GET",
+                "headers": [
+                    {
+                        "Bearer": "${env.TOKEN}"
+                    }
+                ],
+                "expectedResponse": {
+                    "date": "${*}",
+                    "planet": "${?}",
+                    "values": [
+                        "South Africa",
+                        "Canada",
+                        "Zimbabwe"
+                    ]
+                },
+                "filename": "src/data/users/getAllUsers.json",
+                "name": "getAllUsers.json"
+            },
+            {
+                "api": "${env.DOMAIN}/getCountries",
+                "method": "GET",
+                "headers": [
+                    {
+                        "Bearer": "${env.TOKEN}"
+                    }
+                ],
+                "expectedResponse": {
+                    "date": "${*}",
+                    "planet": "${?}",
+                    "values": [
+                        "South Africa",
+                        "Canada",
+                        "Zimbabwe"
+                    ]
+                },
+                "filename": "src/data/users/getUserDetails.json",
+                "name": "getUserDetails.json"
             }
         ]
     }
