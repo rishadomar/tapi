@@ -1,0 +1,23 @@
+[
+    {
+        "category": "chats",
+        "apis": [
+            {
+                "api": "${env.DOMAIN}/getCountries",
+                "method": "GET",
+                "headers": [
+                    {
+                        "Bearer": "${env.TOKEN}"
+                    }
+                ],
+                "expectedResponse": {
+                    "date": "${*}",
+                    "planet": "${?}",
+                    "values": ["South Africa", "Canada", "Zimbabwe"]
+                },
+                "filename": "src/data/chats/getAllChats.json",
+                "name": "getAllChats.json"
+            }
+        ]
+    }
+]
