@@ -54,8 +54,30 @@ const ApiProvider = ({ children }) => {
     const executeApi = (entry) => {
         console.log('Execute the api: ', entry);
         let newEntryDetails = { ...entry };
-        newEntryDetails.status = 'Tried';
-        updateApiEntry(newEntryDetails);
+        newEntryDetails.status = 'Busy';
+
+        fetch(entry.api, {
+            method: entry.method,
+        })
+            .then(function (response) {
+                if (!response.ok) {
+                    throw Error(
+                        'Failed to execute API. Status code: ' + response.status
+                    );
+                }
+                return response.json();
+            })
+            .then(function (myJson) {
+                newEntryDetails.executeResult = myJson;
+                newEntryDetails.status = 'Success';
+                updateApiEntry(newEntryDetails);
+            })
+            .catch((error) => {
+                console.log('Error encountered. ', error.message);
+                newEntryDetails.status = 'Failed';
+                newEntryDetails.executeResult = null;
+                updateApiEntry(newEntryDetails);
+            });
     };
 
     return (

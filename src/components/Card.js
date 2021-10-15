@@ -13,7 +13,7 @@ const Card = ({ category, apiEntry }) => {
             <div className="d-flex flex-row justify-content-between">
                 <h3 className="align-self-center">
                     {apiEntry.name} &nbsp;
-                    <Result success={apiEntry.status} />
+                    {apiEntry.status && <Result success={apiEntry.status} />}
                 </h3>
 
                 <button
@@ -43,6 +43,12 @@ const Card = ({ category, apiEntry }) => {
                     <span>{apiEntry.api}</span>
                     <hr />
                     <Json title="Expected" entry={apiEntry.expectedResponse} />
+                    {apiEntry.executeResult && (
+                        <Json
+                            title="Result JSON"
+                            entry={apiEntry.executeResult}
+                        />
+                    )}
                 </div>
             </div>
         </div>
