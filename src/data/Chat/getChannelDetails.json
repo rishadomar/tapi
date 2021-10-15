@@ -1,0 +1,41 @@
+{
+    "api": "${BASE_URL}/chat/channels/support-authorisation/team",
+    "method": "GET",
+    "headers": ["Accept: application/json"],
+    "expectedResponse": {
+        "channelId": "support-authorisation",
+        "data": {
+            "disabled": false,
+            "own_capabilities": [
+                "send-links",
+                "leave-channel",
+                "delete-own-message",
+                "update-channel",
+                "send-reaction",
+                "delete-any-message",
+                "update-any-message",
+                "search-messages",
+                "freeze-channel",
+                "set-channel-cooldown",
+                "pin-message",
+                "send-typing-events",
+                "upload-file",
+                "send-message",
+                "send-reply",
+                "update-own-message",
+                "delete-channel",
+                "update-channel-members"
+            ],
+            "hidden": false,
+            "hospital": "Support",
+            "initials": "SA",
+            "name": "Support Authorisation",
+            "colour": "#43C86E",
+            "department": "Authorisation"
+        },
+        "lastMessage": {
+            "lastMessageAt": "*",
+            "lastMessage": "*"
+        }
+    }
+}
