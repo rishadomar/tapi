@@ -32,7 +32,10 @@ const readFileStructure = (folder) => {
         .forEach((dirEntry) => {
             if (dirEntry.isDirectory()) {
                 readFileStructure(path.join(folder, dirEntry.name));
-            } else if (dirEntry.name.match(/.json/)) {
+            } else if (
+                dirEntry.name !== 'settings.json' &&
+                dirEntry.name.match(/.json/)
+            ) {
                 addFile(path.join(folder, dirEntry.name));
             }
         });
