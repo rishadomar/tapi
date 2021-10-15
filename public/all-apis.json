@@ -1,78 +1,55 @@
 [
     {
-        "api": "${env.DOMAIN}/getCountries",
+        "api": "${BASE_URL}/chat/channels/support-authorisation/team",
         "method": "GET",
         "headers": [
-            {
-                "Bearer": "${env.TOKEN}"
-            }
+            "Accept: application/json"
         ],
         "expectedResponse": {
-            "date": "${*}",
-            "planet": "${?}",
-            "values": [
-                "South Africa",
-                "Canada",
-                "Zimbabwe"
-            ]
+            "channelId": "support-authorisation",
+            "data": {
+                "disabled": false,
+                "own_capabilities": [
+                    "send-links",
+                    "leave-channel",
+                    "delete-own-message",
+                    "update-channel",
+                    "send-reaction",
+                    "delete-any-message",
+                    "update-any-message",
+                    "search-messages",
+                    "freeze-channel",
+                    "set-channel-cooldown",
+                    "pin-message",
+                    "send-typing-events",
+                    "upload-file",
+                    "send-message",
+                    "send-reply",
+                    "update-own-message",
+                    "delete-channel",
+                    "update-channel-members"
+                ],
+                "hidden": false,
+                "hospital": "Support",
+                "initials": "SA",
+                "name": "Support Authorisation",
+                "colour": "#43C86E",
+                "department": "Authorisation"
+            },
+            "lastMessage": {
+                "lastMessageAt": "*",
+                "lastMessage": "*"
+            }
         },
-        "category": "countries",
-        "filename": "src/data/countries/getCountries.json",
-        "name": "getCountries.json",
+        "category": "Chat",
+        "filename": "src/data/Chat/getChannelDetails.json",
+        "name": "getChannelDetails.json",
         "id": 1
     },
     {
-        "api": "${env.DOMAIN}/getCountries",
+        "api": "${BASE_URL}/employees/23095?key=${MC_SERVER_API_KEY}",
         "method": "GET",
-        "headers": [
-            {
-                "Bearer": "${env.TOKEN}"
-            }
-        ],
-        "expectedResponse": {
-            "date": "${*}",
-            "planet": "${?}",
-            "values": [
-                "South Africa",
-                "Canada",
-                "Zimbabwe"
-            ]
-        },
-        "category": "countries",
-        "filename": "src/data/countries/getProvinces.json",
-        "name": "getProvinces.json",
-        "id": 2
-    },
-    {
-        "api": "${env.DOMAIN}/getCountries",
-        "method": "GET",
-        "headers": [
-            {
-                "Bearer": "${env.TOKEN}"
-            }
-        ],
-        "expectedResponse": {
-            "date": "${*}",
-            "planet": "${?}",
-            "values": [
-                "South Africa",
-                "Canada",
-                "Zimbabwe"
-            ]
-        },
-        "category": "users",
-        "filename": "src/data/users/getAllUsers.json",
-        "name": "getAllUsers.json",
-        "id": 3
-    },
-    {
-        "api": "https://dever24caapi01.er24.co.za/employees/23095?key=s7h3m59rnithu",
-        "method": "GET",
-        "headers": [
-            {
-                "key": "s7h3m59rnithu"
-            }
-        ],
+        "headers": [],
         "expectedResponse": {
             "personIdExternal": "23095",
             "businessEntityDescription": "Mediclinic (SA)",
@@ -83,11 +60,11 @@
             "lastName": "Visser",
             "knownAs": "Chummy",
             "consentToUsePhoto": 1,
-            "photo": ""
+            "photo": "*"
         },
-        "category": "users",
-        "filename": "src/data/users/getEmployee.json",
+        "category": "Employee",
+        "filename": "src/data/Employee/getEmployee.json",
         "name": "getEmployee.json",
-        "id": 4
+        "id": 2
     }
 ]
