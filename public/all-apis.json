@@ -1,110 +1,5 @@
 [
     {
-        "category": "chats",
-        "apis": [
-            {
-                "api": "${env.DOMAIN}/getCountries",
-                "method": "GET",
-                "headers": [
-                    {
-                        "Bearer": "${env.TOKEN}"
-                    }
-                ],
-                "expectedResponse": {
-                    "date": "${*}",
-                    "planet": "${?}",
-                    "values": [
-                        "South Africa",
-                        "Canada",
-                        "Zimbabwe"
-                    ]
-                },
-                "filename": "src/data/chats/getAllChats.json",
-                "name": "getAllChats.json"
-            },
-            {
-                "api": "${env.DOMAIN}/getCountries",
-                "method": "GET",
-                "headers": [
-                    {
-                        "Bearer": "${env.TOKEN}"
-                    }
-                ],
-                "expectedResponse": {
-                    "date": "${*}",
-                    "planet": "${?}",
-                    "values": [
-                        "South Africa",
-                        "Canada",
-                        "Zimbabwe"
-                    ]
-                },
-                "filename": "src/data/chats/getChat.json",
-                "name": "getChat.json"
-            },
-            {
-                "api": "${env.DOMAIN}/getCountries",
-                "method": "GET",
-                "headers": [
-                    {
-                        "Bearer": "${env.TOKEN}"
-                    }
-                ],
-                "expectedResponse": {
-                    "date": "${*}",
-                    "planet": "${?}",
-                    "values": [
-                        "South Africa",
-                        "Canada",
-                        "Zimbabwe"
-                    ]
-                },
-                "filename": "src/data/chats/getChatHistory.json",
-                "name": "getChatHistory.json"
-            },
-            {
-                "api": "${env.DOMAIN}/getCountries",
-                "method": "GET",
-                "headers": [
-                    {
-                        "Bearer": "${env.TOKEN}"
-                    }
-                ],
-                "expectedResponse": {
-                    "date": "${*}",
-                    "planet": "${?}",
-                    "values": [
-                        "South Africa",
-                        "Canada",
-                        "Zimbabwe"
-                    ]
-                },
-                "filename": "src/data/chats/getCountries.json",
-                "name": "getCountries.json"
-            },
-            {
-                "api": "${env.DOMAIN}/getCountries",
-                "method": "GET",
-                "headers": [
-                    {
-                        "Bearer": "${env.TOKEN}"
-                    }
-                ],
-                "expectedResponse": {
-                    "date": "${*}",
-                    "planet": "${?}",
-                    "values": [
-                        "South Africa",
-                        "Canada",
-                        "Zimbabwe"
-                    ]
-                },
-                "filename": "src/data/chats/getProvinces.json",
-                "name": "getProvinces.json"
-            }
-        ]
-    },
-    {
         "category": "countries",
         "apis": [
             {
@@ -173,24 +68,27 @@
                 "name": "getAllUsers.json"
             },
             {
-                "api": "${env.DOMAIN}/getCountries",
+                "api": "https://dever24caapi01.er24.co.za/employees/23095?key=s7h3m59rnithu",
                 "method": "GET",
                 "headers": [
                     {
-                        "Bearer": "${env.TOKEN}"
+                        "key": "s7h3m59rnithu"
                     }
                 ],
                 "expectedResponse": {
-                    "date": "${*}",
-                    "planet": "${?}",
-                    "values": [
-                        "South Africa",
-                        "Canada",
-                        "Zimbabwe"
-                    ]
+                    "personIdExternal": "23095",
+                    "businessEntityDescription": "Mediclinic (SA)",
+                    "facilityDescription": "Mediclinic Southern Africa Corporate Office",
+                    "facilityRegionDescription": "Corporate Office",
+                    "departmentDescription": "Information and Communication Technology",
+                    "positionDescription": "ICT Manager: Software Design, Creation & Integration",
+                    "lastName": "Visser",
+                    "knownAs": "Chummy",
+                    "consentToUsePhoto": 1,
+                    "photo": ""
                 },
-                "filename": "src/data/users/getUserDetails.json",
-                "name": "getUserDetails.json"
+                "filename": "src/data/users/getEmployee.json",
+                "name": "getEmployee.json"
             }
         ]
     }
