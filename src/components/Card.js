@@ -1,20 +1,19 @@
 import Result from 'components/Result';
 import Json from 'components/Json';
 import MethodButton from 'components/MethodButton';
+import { ApiContext } from 'context/apisContext';
+import { useContext } from 'react';
 
 const Card = ({ category, apiEntry }) => {
-    const uniqueId = `entry-${category}-${apiEntry.name.replace('.', '-')}`;
-
-    const executeApi = (apiEntry) => {
-        console.log('Do the stuff');
-    };
+    const { executeApi } = useContext(ApiContext);
+    const uniqueId = `entry-${apiEntry.id}`;
 
     return (
         <div className="card p-3">
             <div className="d-flex flex-row justify-content-between">
                 <h3 className="align-self-center">
                     {apiEntry.name} &nbsp;
-                    <Result success={apiEntry.result} />
+                    <Result success={apiEntry.status} />
                 </h3>
 
                 <button
@@ -28,7 +27,10 @@ const Card = ({ category, apiEntry }) => {
                     Collapse/Show
                 </button>
 
-                <MethodButton onClick={executeApi} apiEntry={apiEntry} />
+                <MethodButton
+                    onClick={() => executeApi(apiEntry)}
+                    apiEntry={apiEntry}
+                />
             </div>
 
             <div
