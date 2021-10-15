@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/utils/compare.js",
+            "cwd": "${workspaceFolder}/utils",
+            "name": "Test obj equality",
+            "args": ["1.json", "2.json"]
+        },
+        {
             "type": "pwa-chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
