@@ -1,3 +1,4 @@
+import React from 'react';
 const Result = ({ success }) => {
     if (success === 'Busy') {
         return <span className="badge badge-info-400 mr-3">{success}</span>;

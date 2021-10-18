@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { React, createContext, useState } from 'react';
 import * as ProjectConstants from 'projectConstants';
 import Settings from 'data/settings.json';
 export const ApiContext = createContext();

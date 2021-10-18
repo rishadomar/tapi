@@ -1,3 +1,4 @@
+import React from 'react';
 import Result from 'components/Result';
 import Json from 'components/Json';
 import MethodButton from 'components/MethodButton';

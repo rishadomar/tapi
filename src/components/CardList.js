@@ -1,6 +1,4 @@
-import Result from 'components/Result';
-import Json from 'components/Json';
-import MethodButton from 'components/MethodButton';
+import React from 'react';
 import Category from 'components/Category';
 import Card from 'components/Card';
 import Spinner from 'components/Spinner';
