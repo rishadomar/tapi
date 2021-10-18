@@ -37,3 +37,7 @@ POST Update
 8. Use cypress to actually run the tests
 
 9. Be able to Login for MyChat, then run APIs as authenticated user
+
+## Eslint + Prettier
+
+https://gist.github.com/bradtraversy/aab26d1e8983d9f8d79be1a9ca894ab4
