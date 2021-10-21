@@ -1,10 +1,12 @@
-import { React, createContext, useState } from 'react';
+import { React, createContext, useReducer } from 'react';
 import * as ProjectConstants from 'projectConstants';
 import Settings from 'data/settings.json';
+import { reducer } from './reducer';
+
 export const ApiContext = createContext();
 
 const ApiProvider = ({ children }) => {
-    const [apis, setApis] = useState(null);
+    const [apis, dispatch] = useReducer(reducer, null);
 
     /**
      * Read all API entries
@@ -25,31 +27,14 @@ const ApiProvider = ({ children }) => {
                 return response.json();
             })
             .then(function (myJson) {
-                setTimeout(() => setApis(myJson), 1000);
+                setTimeout(
+                    () => dispatch({ type: 'SET_APIS', apis: myJson }),
+                    1000
+                );
             })
             .catch((error) => {
                 console.log('Error encountered. ', error.message);
             });
-    };
-
-    /**
-     * Update an entry
-     * @param {*} updatedApiEntry
-     * @returns
-     */
-    const updateApiEntry = (updatedApiEntry) => {
-        if (apis === null) {
-            return;
-        }
-        const a = apis.findIndex((entry) => entry.id === updatedApiEntry.id);
-        if (a < 0) {
-            return;
-        }
-        setApis((currentValues) => {
-            const newValues = [...currentValues];
-            newValues.splice(a, 1, updatedApiEntry);
-            return newValues;
-        });
     };
 
     /**
@@ -154,13 +139,27 @@ const ApiProvider = ({ children }) => {
                     newEntryDetails.status = 'Diff';
                     console.log('Different: ', entry.expectedResponse, myJson);
                 }
-                setTimeout(() => updateApiEntry(newEntryDetails), 3000);
+                setTimeout(
+                    () =>
+                        dispatch({
+                            type: 'UPDATE_API',
+                            updatedApiEntry: newEntryDetails,
+                        }),
+                    3000
+                );
             })
             .catch((error) => {
                 console.log('Error encountered. ', error.message);
                 newEntryDetails.status = 'Failed';
                 newEntryDetails.executeResult = null;
-                updateApiEntry(newEntryDetails);
+                setTimeout(
+                    () =>
+                        dispatch({
+                            type: 'UPDATE_API',
+                            updatedApiEntry: newEntryDetails,
+                        }),
+                    3000
+                );
             });
     };
 

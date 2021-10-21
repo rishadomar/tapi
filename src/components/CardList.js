@@ -17,7 +17,7 @@ const CardList = () => {
 
     useEffect(() => {
         if (apis !== null) {
-            setCategoriesWithApis(breakApiEntriesIntoCategories(apis));
+            setCategoriesWithApis(breakApiEntriesIntoCategories(apis.apis));
         }
     }, [apis]);
 
