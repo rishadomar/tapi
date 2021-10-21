@@ -17,7 +17,7 @@ const CardList = () => {
 
     useEffect(() => {
         if (apis !== null) {
-            setCategoriesWithApis(breakApiEntriesIntoCategories(apis.apis));
+            setCategoriesWithApis(breakApiEntriesIntoCategories(apis.entries));
         }
     }, [apis]);
 
@@ -25,9 +25,9 @@ const CardList = () => {
         return <Spinner text="Loading..." />;
     }
 
-    const breakApiEntriesIntoCategories = (apis) => {
+    const breakApiEntriesIntoCategories = (apiEntries) => {
         let categories = [];
-        apis.forEach((apiEntry) => {
+        apiEntries.forEach((apiEntry) => {
             const foundCategoryEntry = categories.find(
                 (c) => c.category === apiEntry.category
             );
