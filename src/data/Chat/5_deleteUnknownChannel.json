@@ -1,0 +1,10 @@
+{
+    "api": "${BASE_URL}/chat/chat/channels/unknown-channel/team",
+    "description": "Delete an unknown chat channel",
+    "method": "DELETE",
+    "headers": {"Content-Type": "application/json"},
+    "expectedResponseId": 400,
+    "expectedResponse": {
+        "error": "DeleteChannel failed with error: \"Can't find channel with id team:unknown-channel\""
+    }
+}

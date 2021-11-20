@@ -1,0 +1,9 @@
+{
+    "api": "${BASE_URL}/chat/chat/channels/new-channel/team",
+    "description": "Delete a chat channel",
+    "method": "DELETE",
+    "headers": {"Content-Type": "application/json"},
+    "expectedResponse": {
+        "channelId": "new-channel"
+    }
+}

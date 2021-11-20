@@ -129,6 +129,37 @@
         "id": 3
     },
     {
+        "api": "${BASE_URL}/chat/chat/channels/new-channel/team",
+        "description": "Delete a chat channel",
+        "method": "DELETE",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "expectedResponse": {
+            "channelId": "new-channel"
+        },
+        "category": "Chat",
+        "filename": "src/data/Chat/4_deleteChannel.json",
+        "name": "4_deleteChannel.json",
+        "id": 4
+    },
+    {
+        "api": "${BASE_URL}/chat/chat/channels/unknown-channel/team",
+        "description": "Delete an unknown chat channel",
+        "method": "DELETE",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "expectedResponseId": 400,
+        "expectedResponse": {
+            "error": "DeleteChannel failed with error: \"Can't find channel with id team:unknown-channel\""
+        },
+        "category": "Chat",
+        "filename": "src/data/Chat/5_deleteUnknownChannel.json",
+        "name": "5_deleteUnknownChannel.json",
+        "id": 5
+    },
+    {
         "api": "${BASE_URL}/chat/channels/support-authorisation/team",
         "method": "GET",
         "headers": [
@@ -154,7 +185,7 @@
         "category": "Chat",
         "filename": "src/data/Chat/getChannelStuff.json",
         "name": "getChannelStuff.json",
-        "id": 4
+        "id": 6
     },
     {
         "api": "${BASE_URL}/employees/23095?key=${MC_SERVER_API_KEY}",
@@ -175,6 +206,6 @@
         "category": "Employee",
         "filename": "src/data/Employee/getEmployee.json",
         "name": "getEmployee.json",
-        "id": 5
+        "id": 7
     }
 ]

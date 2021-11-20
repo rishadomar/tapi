@@ -130,12 +130,18 @@ const ApiProvider = ({ children }) => {
         console.log('Fetch Details', fetchDetails);
         fetch(url, fetchDetails)
             .then(function (response) {
-                if (!response.ok) {
+                console.log("Response:", response)
+                if (
+                    response.ok ||
+                    (entry.expectedResponseId &&
+                        response.status == entry.expectedResponseId)
+                ) {
+                    return response.json();
+                } else {
                     throw Error(
                         'Failed to execute API. Status code: ' + response.status
                     );
                 }
-                return response.json();
             })
             .then(function (myJson) {
                 newEntryDetails.executeResult = myJson;
