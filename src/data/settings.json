@@ -1,4 +1,6 @@
 {
     "BASE_URL": "https://devecaapi01.mediclinic.co.za",
-    "MC_SERVER_API_KEY": "s7h3m59rnithu"
+    "MC_SERVER_API_KEY": "s7h3m59rnithu",
+    "TEST_ADMIN_USER_ID": "wade-aux-co-za",
+    "TEST_NON_ADMIN_USER_ID": "ismail-aux-co-za"
 }

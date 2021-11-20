@@ -1,9 +1,8 @@
-import React from 'react';
-import Result from 'components/Result';
 import Json from 'components/Json';
 import MethodButton from 'components/MethodButton';
+import Result from 'components/Result';
 import { ApiContext } from 'context/apisContext';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 
 const Card = ({ category, apiEntry }) => {
     const { executeApi } = useContext(ApiContext);
@@ -13,7 +12,8 @@ const Card = ({ category, apiEntry }) => {
         <div className="card p-3">
             <div className="d-flex flex-row justify-content-between">
                 <h3 className="align-self-center">
-                    {apiEntry.name} &nbsp;
+                    {apiEntry.description} &nbsp;
+                    ({apiEntry.name}) &nbsp;
                     {apiEntry.status && <Result success={apiEntry.status} />}
                 </h3>
 

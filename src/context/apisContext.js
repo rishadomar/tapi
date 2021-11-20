@@ -1,6 +1,6 @@
-import { React, createContext, useReducer } from 'react';
-import * as ProjectConstants from 'projectConstants';
 import Settings from 'data/settings.json';
+import * as ProjectConstants from 'projectConstants';
+import { createContext, React, useReducer } from 'react';
 import { reducer } from './reducer';
 
 export const ApiContext = createContext();
@@ -118,9 +118,17 @@ const ApiProvider = ({ children }) => {
             url = url.replace('${' + key + '}', Settings[key]);
         }
 
-        fetch(url, {
+        let fetchDetails = {
             method: entry.method,
-        })
+        };
+        if (entry.headers) {
+            fetchDetails['headers'] = entry.headers;
+        }
+        if (entry.body) {
+            fetchDetails['body'] = JSON.stringify(entry.body);
+        }
+        console.log('Fetch Details', fetchDetails);
+        fetch(url, fetchDetails)
             .then(function (response) {
                 if (!response.ok) {
                     throw Error(
