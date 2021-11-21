@@ -11,20 +11,36 @@ const ApiCard = ({ category, apiEntry }) => {
     const { executeApi } = useContext(ApiContext);
     const uniqueId = `entry-${apiEntry.id}`;
     const [open, setOpen] = useState(false);
+    const [busy, setBusy] = useState(false);
+
+    const execute = (apiEntry) => {
+        setBusy(true);
+        executeApi(apiEntry)
+            .then(() => {})
+            .catch((message) => {
+                console.log('error: ', message);
+            })
+            .finally(() => {
+                setBusy(false);
+            });
+    };
 
     return (
         <Card>
             <Card.Header>{apiEntry.name}</Card.Header>
             <Card.Body>
-                <Card.Text>{category} {apiEntry.description}</Card.Text>
-                <Result success={apiEntry.status} />
+                <Card.Text>
+                    {category} {apiEntry.description}
+                </Card.Text>
                 <Button variant="link" onClick={() => setOpen(!open)}>
                     Collapse/Show
                 </Button>
                 <MethodButton
-                    onClick={() => executeApi(apiEntry)}
+                    busy={busy}
+                    onClick={execute}
                     apiEntry={apiEntry}
                 />
+                <Result success={apiEntry.status} />
                 <Collapse in={open}>
                     <div id={uniqueId}>
                         <Json

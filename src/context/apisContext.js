@@ -106,75 +106,76 @@ const ApiProvider = ({ children }) => {
      * @param {*} entry
      */
     const executeApi = (entry) => {
-        console.log('Execute the api: ', entry, Settings);
-        let newEntryDetails = { ...entry };
-        newEntryDetails.status = 'Busy';
+        return new Promise((resolve, reject) => {
+            console.log('Execute the api: ', entry, Settings);
+            let newEntryDetails = { ...entry };
+            newEntryDetails.status = 'Busy';
 
-        //
-        // Replace the Settings values
-        //
-        let url = entry.api;
-        for (var key of Object.keys(Settings)) {
-            url = url.replace('${' + key + '}', Settings[key]);
-        }
+            //
+            // Replace the Settings values
+            //
+            let url = entry.api;
+            for (var key of Object.keys(Settings)) {
+                url = url.replace('${' + key + '}', Settings[key]);
+            }
 
-        let fetchDetails = {
-            method: entry.method,
-        };
-        if (entry.headers) {
-            fetchDetails['headers'] = entry.headers;
-        }
-        if (entry.body) {
-            fetchDetails['body'] = JSON.stringify(entry.body);
-        }
-        console.log('Fetch Details', fetchDetails);
-        fetch(url, fetchDetails)
-            .then(function (response) {
-                console.log("Response:", response)
-                if (
-                    response.ok ||
-                    (entry.expectedResponseId &&
-                        response.status == entry.expectedResponseId)
-                ) {
-                    return response.json();
-                } else {
-                    throw Error(
-                        'Failed to execute API. Status code: ' + response.status
-                    );
-                }
-            })
-            .then(function (myJson) {
-                newEntryDetails.executeResult = myJson;
+            let fetchDetails = {
+                method: entry.method,
+            };
+            if (entry.headers) {
+                fetchDetails['headers'] = entry.headers;
+            }
+            if (entry.body) {
+                fetchDetails['body'] = JSON.stringify(entry.body);
+            }
+            console.log('Fetch Details', fetchDetails);
+            fetch(url, fetchDetails)
+                .then(function (response) {
+                    console.log('Response:', response);
+                    if (
+                        response.ok ||
+                        (entry.expectedResponseId &&
+                            response.status == entry.expectedResponseId)
+                    ) {
+                        return response.json();
+                    } else {
+                        throw Error(
+                            'Failed to execute API. Status code: ' +
+                                response.status
+                        );
+                    }
+                })
+                .then(function (myJson) {
+                    newEntryDetails.executeResult = myJson;
 
-                if (objectEquals(entry.expectedResponse, myJson)) {
-                    newEntryDetails.status = 'Success';
-                    console.log('Same: ', entry.expectedResponse, myJson);
-                } else {
-                    newEntryDetails.status = 'Diff';
-                    console.log('Different: ', entry.expectedResponse, myJson);
-                }
-                setTimeout(
-                    () =>
-                        dispatch({
-                            type: 'UPDATE_API',
-                            updatedApiEntry: newEntryDetails,
-                        }),
-                    3000
-                );
-            })
-            .catch((error) => {
-                console.log('Error encountered. ', error.message);
-                newEntryDetails.status = 'Failed';
-                newEntryDetails.executeResult = null;
-                setTimeout(
-                    () =>
-                        dispatch({
-                            type: 'UPDATE_API',
-                            updatedApiEntry: newEntryDetails,
-                        }),
-                    3000
-                );
-            });
+                    if (objectEquals(entry.expectedResponse, myJson)) {
+                        newEntryDetails.status = 'Success';
+                        console.log('Same: ', entry.expectedResponse, myJson);
+                    } else {
+                        newEntryDetails.status = 'Diff';
+                        console.log(
+                            'Different: ',
+                            entry.expectedResponse,
+                            myJson
+                        );
+                    }
+                    dispatch({
+                        type: 'UPDATE_API',
+                        updatedApiEntry: newEntryDetails,
+                    });
+                    resolve();
+                })
+                .catch((error) => {
+                    console.log('Error encountered. ', error.message);
+                    newEntryDetails.status = 'Failed';
+                    newEntryDetails.executeResult = null;
+                    dispatch({
+                        type: 'UPDATE_API',
+                        updatedApiEntry: newEntryDetails,
+                    });
+                    reject(error.message);
+                });
+        });
     };
 
     return (
