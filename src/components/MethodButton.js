@@ -1,13 +1,14 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
+
 const MethodButton = ({ apiEntry, onClick }) => {
     return (
-        <button
+        <Button 
             onClick={() => onClick(apiEntry)}
-            type="button"
-            className="btn btn-primary"
+            variant="primary"
         >
             {apiEntry.method}
-        </button>
+        </Button>
     );
 };
 

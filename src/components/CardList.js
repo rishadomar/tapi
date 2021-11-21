@@ -1,9 +1,8 @@
-import React from 'react';
-import Category from 'components/Category';
-import Card from 'components/Card';
-import Spinner from 'components/Spinner';
+import ApiCard from 'components/ApiCard';
+import BusySpinner from 'components/BusySpinner';
 import { ApiContext } from 'context/apisContext';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import Accordion from 'react-bootstrap/Accordion';
 
 const CardList = () => {
     const { apis, readApis } = useContext(ApiContext);
@@ -22,7 +21,7 @@ const CardList = () => {
     }, [apis]);
 
     if (apis === null) {
-        return <Spinner text="Loading..." />;
+        return <BusySpinner text="Loading..." />;
     }
 
     const breakApiEntriesIntoCategories = (apiEntries) => {
@@ -44,18 +43,19 @@ const CardList = () => {
     };
 
     return categoriesWithApis.map((c) => (
-        <div key={c.category}>
-            <Category text={c.category} />
-            <div className="accordion" id={`category-${c.category}`}>
+        <Accordion key={c.category} defaultActiveKey={c.category}>
+            <Accordion.Item eventKey={c.category} />
+            <Accordion.Header>{c.category}</Accordion.Header>
+            <Accordion.Body>
                 {c.apiEntries.map((a) => (
-                    <Card
+                    <ApiCard
                         key={a.id}
                         category={c.category}
                         apiEntry={{ ...a }}
                     />
                 ))}
-            </div>
-        </div>
+            </Accordion.Body>
+        </Accordion>
     ));
 };
 

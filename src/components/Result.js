@@ -1,22 +1,24 @@
 import React from 'react';
+import Badge from 'react-bootstrap/Badge';
+
 const Result = ({ success }) => {
     if (success === 'Busy') {
-        return <span className="badge badge-info-400 mr-3">{success}</span>;
+        return <Badge pill bg="info">{success}</Badge>;
     }
 
     if (success === 'Success') {
-        return <span className="badge badge-success-400 mr-3">{success}</span>;
+        return <Badge pill bg="success">{success}</Badge>;
     }
 
     if (success === 'Failed') {
-        return <span className="badge badge-danger-400 mr-3">{success}</span>;
+        return <Badge pill bg="danger">{success}</Badge>;
     }
 
     if (success === 'Diff') {
-        return <span className="badge badge-warning-400 mr-3">{success}</span>;
+        return <Badge pill bg="warning">{success}</Badge>;
     }
 
-    return <span className="badge badge-info-400 mr-3">{success}</span>;
+    return <Badge pill bg="dark">{success}</Badge>;
 };
 
 export default Result;

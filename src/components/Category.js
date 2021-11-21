@@ -1,6 +1,6 @@
 import React from 'react';
 const Category = ({ text }) => {
-    return <h3 className="display-1 m-5">{text}</h3>;
+    return <h3 className="header">{text}</h3>;
 };
 
 export default Category;
