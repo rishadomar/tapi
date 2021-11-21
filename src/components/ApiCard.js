@@ -33,7 +33,7 @@ const ApiCard = ({ category, apiEntry }) => {
                     {category} {apiEntry.description}
                 </Card.Text>
                 <Button variant="link" onClick={() => setOpen(!open)}>
-                    Collapse/Show
+                    {open ? "Collapse" : "Show"}
                 </Button>
                 <MethodButton
                     busy={busy}
