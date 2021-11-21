@@ -72,9 +72,9 @@
         "api": "${BASE_URL}/chat/channels/support-authorisation/team",
         "method": "GET",
         "description": "Get the channel for a specific channelId",
-        "headers": [
-            "Accept: application/json"
-        ],
+        "headers": {
+            "Accept": "application/json"
+        },
         "expectedResponse": {
             "channelId": "support-authorisation",
             "data": {
