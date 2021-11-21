@@ -3,11 +3,11 @@ import Badge from 'react-bootstrap/Badge';
 
 const Result = ({ success }) => {
     if (success === 'Busy') {
-        return <Badge pill bg="info">{success}</Badge>;
+        return <Badge pl="5" pill bg="info">{success}</Badge>;
     }
 
     if (success === 'Success') {
-        return <Badge pill bg="success">{success}</Badge>;
+        return <Badge pl="5" pill bg="success">{success}</Badge>;
     }
 
     if (success === 'Failed') {
