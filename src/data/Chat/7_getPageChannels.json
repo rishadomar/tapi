@@ -1,0 +1,37 @@
+{
+    "api": "${BASE_URL}/chat/channels?offset=30&limit=2",
+    "description": "Get all channels",
+    "method": "GET",
+    "headers": { "Content-Type": "application/json" },
+    "expectedResponse": [
+        {
+            "channelId": "mcsa-abc",
+            "data": {
+                "disabled": false,
+                "own_capabilities": "*",
+                "hidden": false,
+                "department": "abc",
+                "name": "mcsa abc",
+                "colour": "#43C86F",
+                "hospital": "mcsa",
+                "initials": "ABC",
+                "channelId": "mcsa-abc"
+            },
+            "unreadCount": 0
+        },
+        {
+            "channelId": "mediclinic-bloemfontein-clinical",
+            "data": {
+                "disabled": false,
+                "own_capabilities": "*",
+                "hidden": false,
+                "colour": "#613DC2",
+                "hospital": "Mediclinic Bloemfontein",
+                "initials": "C",
+                "department": "Clinical",
+                "name": "Mediclinic Bloemfontein Clinical"
+            },
+            "unreadCount": 0
+        }
+    ]
+}
