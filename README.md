@@ -5,6 +5,9 @@ npm start
 
 # Dev
 
+Use this as base:
+https://devecaapi01.mediclinic.co.za/index.html
+
 Add your APIs in data folder.
 Use subfolders to categorise your APIs.
 Look at the example APIs to build your own.

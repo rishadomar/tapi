@@ -129,37 +129,6 @@
         "id": 3
     },
     {
-        "api": "${BASE_URL}/chat/chat/channels/new-channel/team",
-        "description": "Delete a chat channel",
-        "method": "DELETE",
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "expectedResponse": {
-            "channelId": "new-channel"
-        },
-        "category": "Chat",
-        "filename": "src/data/Chat/4_deleteChannel.json",
-        "name": "4_deleteChannel.json",
-        "id": 4
-    },
-    {
-        "api": "${BASE_URL}/chat/chat/channels/unknown-channel/team",
-        "description": "Delete an unknown chat channel",
-        "method": "DELETE",
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "expectedResponseId": 400,
-        "expectedResponse": {
-            "error": "DeleteChannel failed with error: \"Can't find channel with id team:unknown-channel\""
-        },
-        "category": "Chat",
-        "filename": "src/data/Chat/5_deleteUnknownChannel.json",
-        "name": "5_deleteUnknownChannel.json",
-        "id": 5
-    },
-    {
         "api": "${BASE_URL}/chat/channels/new-channel/team",
         "description": "Update a channel",
         "method": "PUT",
@@ -178,8 +147,39 @@
             }
         },
         "category": "Chat",
-        "filename": "src/data/Chat/6_updateChannel.json",
-        "name": "6_updateChannel.json",
+        "filename": "src/data/Chat/4_updateChannel.json",
+        "name": "4_updateChannel.json",
+        "id": 4
+    },
+    {
+        "api": "${BASE_URL}/chat/chat/channels/new-channel/team",
+        "description": "Delete a chat channel",
+        "method": "DELETE",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "expectedResponse": {
+            "channelId": "new-channel"
+        },
+        "category": "Chat",
+        "filename": "src/data/Chat/5_deleteChannel.json",
+        "name": "5_deleteChannel.json",
+        "id": 5
+    },
+    {
+        "api": "${BASE_URL}/chat/chat/channels/unknown-channel/team",
+        "description": "Delete an unknown chat channel",
+        "method": "DELETE",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "expectedResponseId": 400,
+        "expectedResponse": {
+            "error": "DeleteChannel failed with error: \"Can't find channel with id team:unknown-channel\""
+        },
+        "category": "Chat",
+        "filename": "src/data/Chat/6_deleteUnknownChannel.json",
+        "name": "6_deleteUnknownChannel.json",
         "id": 6
     },
     {
@@ -226,6 +226,119 @@
         "id": 7
     },
     {
+        "api": "${BASE_URL}/chat/channels/query?filter={\"type\":\"team\",\"name\":\"{$autocomplete:'brits'}\"}&sort={\"id\":1,\"type\":-1}&limit=2",
+        "method": "GET",
+        "description": "Get the channel for a specific channelId",
+        "headers": {
+            "Accept": "application/json"
+        },
+        "expectedResponse": [
+            {
+                "channelId": "mediclinic-brits",
+                "data": {
+                    "disabled": false,
+                    "own_capabilities": "*",
+                    "hidden": false,
+                    "hospital": "Mediclinic Brits",
+                    "initials": "MB",
+                    "channelId": "mediclinic-brits",
+                    "department": "",
+                    "name": "Mediclinic Brits ",
+                    "colour": "#7713A2"
+                },
+                "unreadCount": 25,
+                "lastMessage": {
+                    "lastMessageAt": "*",
+                    "lastMessage": "*"
+                }
+            },
+            {
+                "channelId": "mediclinic-brits-clinical",
+                "data": {
+                    "disabled": false,
+                    "own_capabilities": "*",
+                    "hidden": false,
+                    "name": "Mediclinic Brits Clinical",
+                    "colour": "#FB9D6B",
+                    "hospital": "Mediclinic Brits",
+                    "initials": "C",
+                    "department": "Clinical"
+                },
+                "unreadCount": 2,
+                "lastMessage": {
+                    "lastMessageAt": "*",
+                    "lastMessage": "*"
+                }
+            }
+        ],
+        "category": "Chat",
+        "filename": "src/data/Chat/8_queryChannels.json",
+        "name": "8_queryChannels.json",
+        "id": 8
+    },
+    {
+        "api": "${BASE_URL}/chat/channels/query",
+        "parameters": {
+            "filter": {
+                "type": "team",
+                "name": "{ \"$autocomplete\": \"brits\" }"
+            },
+            "sort": {
+                "id": 1,
+                "type": -1
+            },
+            "limit": 2
+        },
+        "method": "GET",
+        "description": "Get the channel for a specific channelId",
+        "headers": {
+            "Accept": "application/json"
+        },
+        "expectedResponse": [
+            {
+                "channelId": "mediclinic-brits",
+                "data": {
+                    "disabled": false,
+                    "own_capabilities": "*",
+                    "hidden": false,
+                    "hospital": "Mediclinic Brits",
+                    "initials": "MB",
+                    "channelId": "mediclinic-brits",
+                    "department": "",
+                    "name": "Mediclinic Brits ",
+                    "colour": "#7713A2"
+                },
+                "unreadCount": 25,
+                "lastMessage": {
+                    "lastMessageAt": "*",
+                    "lastMessage": "*"
+                }
+            },
+            {
+                "channelId": "mediclinic-brits-clinical",
+                "data": {
+                    "disabled": false,
+                    "own_capabilities": "*",
+                    "hidden": false,
+                    "name": "Mediclinic Brits Clinical",
+                    "colour": "#FB9D6B",
+                    "hospital": "Mediclinic Brits",
+                    "initials": "C",
+                    "department": "Clinical"
+                },
+                "unreadCount": 2,
+                "lastMessage": {
+                    "lastMessageAt": "*",
+                    "lastMessage": "*"
+                }
+            }
+        ],
+        "category": "Chat",
+        "filename": "src/data/Chat/9_queryChannels_alternative.json",
+        "name": "9_queryChannels_alternative.json",
+        "id": 9
+    },
+    {
         "api": "${BASE_URL}/employees/23095?key=${MC_SERVER_API_KEY}",
         "method": "GET",
         "headers": [],
@@ -244,6 +357,6 @@
         "category": "Employee",
         "filename": "src/data/Employee/getEmployee.json",
         "name": "getEmployee.json",
-        "id": 8
+        "id": 10
     }
 ]

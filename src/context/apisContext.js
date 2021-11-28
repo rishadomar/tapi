@@ -102,6 +102,33 @@ const ApiProvider = ({ children }) => {
     };
 
     /**
+     * Build a query string.
+     * @param {*} jsonObject 
+     * @returns 
+     */
+    const makeQueryString = (jsonObject) => {
+        let queryString = '';
+        Object.keys(jsonObject).forEach((key) => {
+            if (queryString.length === 0) {
+                queryString += '?';
+            } else {
+                queryString += '&';
+            }
+            queryString += key + '=' + JSON.stringify(jsonObject[key]);
+        })
+        return queryString;    
+    }
+    
+    // eslint-disable-next-line no-unused-vars
+    const _makeQueryString = (jsonObject) => {
+        let searchParams = new URLSearchParams('');
+        Object.keys(jsonObject).forEach((key) => {
+            searchParams.set(key, JSON.stringify(jsonObject[key]));
+        })
+        return searchParams.toString();    
+    }
+
+    /**
      * Execute the API
      * @param {*} entry
      */
@@ -119,6 +146,16 @@ const ApiProvider = ({ children }) => {
                 url = url.replace('${' + key + '}', Settings[key]);
             }
 
+            //
+            // Add any parameters
+            //
+            if (entry.parameters) {
+                url += makeQueryString(entry.parameters);
+            }
+
+            //
+            // Setup headers
+            //
             let fetchDetails = {
                 method: entry.method,
             };
@@ -129,6 +166,11 @@ const ApiProvider = ({ children }) => {
                 fetchDetails['body'] = JSON.stringify(entry.body);
             }
             console.log('Fetch Details', fetchDetails);
+            console.log("url", url);
+
+            //
+            // Fetch
+            //
             fetch(url, fetchDetails)
                 .then(function (response) {
                     console.log('Response:', response);
