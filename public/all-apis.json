@@ -340,6 +340,27 @@
     },
     {
         "api": "${BASE_URL}/employees/23095?key=${MC_SERVER_API_KEY}",
+        "method": "GETX",
+        "headers": [],
+        "expectedResponse": {
+            "personIdExternal": "23095",
+            "businessEntityDescription": "Mediclinic (SA)",
+            "facilityDescription": "Mediclinic Southern Africa Corporate Office",
+            "facilityRegionDescription": "Corporate Office",
+            "departmentDescription": "Information and Communication Technology",
+            "positionDescription": "ICT Manager: Software Design, Creation & Integration",
+            "lastName": "Visser",
+            "knownAs": "Chummy",
+            "consentToUsePhoto": 1,
+            "photo": "*"
+        },
+        "category": "Employee",
+        "filename": "src/data/Employee/badEmployee.json",
+        "name": "badEmployee.json",
+        "id": 10
+    },
+    {
+        "api": "${BASE_URL}/employees/23095?key=${MC_SERVER_API_KEY}",
         "method": "GET",
         "headers": [],
         "expectedResponse": {
@@ -357,6 +378,6 @@
         "category": "Employee",
         "filename": "src/data/Employee/getEmployee.json",
         "name": "getEmployee.json",
-        "id": 10
+        "id": 11
     }
 ]
