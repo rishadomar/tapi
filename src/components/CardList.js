@@ -45,7 +45,7 @@ const CardList = () => {
     return categoriesWithApis.map((c) => (
         <Accordion key={c.category} defaultActiveKey={c.category}>
             <Accordion.Item eventKey={c.category} />
-            <Accordion.Header>{c.category}</Accordion.Header>
+            <Accordion.Header data-name={c.category}>{c.category}</Accordion.Header>
             <Accordion.Body>
                 {c.apiEntries.map((a) => (
                     <ApiCard
