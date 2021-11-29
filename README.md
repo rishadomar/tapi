@@ -1,9 +1,10 @@
-# Get started
+## Get started
 
 npm install
 npm start
+npm run cypress:open
 
-# Dev
+## Dev
 
 Use this as base:
 https://devecaapi01.mediclinic.co.za/index.html
@@ -16,30 +17,21 @@ On any change to the data folder, run:
 npm run extractAllApis
 This will generate public/all-apis.json which is consumed by the app.
 
-# Coming up
+## Coming up
 
-1. use useReducer instead of useState
-
-2. Scrollbar
-
-3. Good examples
-
-GET list
-GET 1 entry
-POST Delete
-POST Update
-
-4. Use this to test MyChat API
-
-5. How to fork for each new project and yet be able to merge back
-
-6. Styling
-
-7. Diff the result vs expected, and show diff
-
-8. Use cypress to actually run the tests
-
+1. View expected result vs got result side by side (instead of below each other)
+2. View diffs color coded
+3. Add more cyprus tests for remaining tests
+4. Run cyprus via command line
+5. Move data folder out of repo into its own repo. Then link it in.
+6. Move this repo to github
+7. Write a getting started guide
+8. Where should cyprus run. On github page?
 9. Be able to Login for MyChat, then run APIs as authenticated user
+
+## Cyprus docs
+
+https://docs.cypress.io/guides/core-concepts/interacting-with-elements#Actionability
 
 ## Eslint + Prettier
 
