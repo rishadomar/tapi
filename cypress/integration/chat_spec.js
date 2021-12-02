@@ -9,7 +9,7 @@ describe('Get details for user', () => {
         cy.get('[data-cy=result]').should('have.text', 'Success');
     })
 
-    it('Get channels for user', () => {
+    it('Get channel details', () => {
         cy.get('#2_getChannelDetails').click();
         cy.get('[data-cy=result]').should('have.text', 'Success');
     })
