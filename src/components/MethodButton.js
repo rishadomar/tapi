@@ -59,7 +59,7 @@ const MethodButton = ({ busy, onClick, apiEntry }) => {
     } else {
         return (
             <Button
-                id={apiEntry.name.replace('.json', '')}
+                data-method="1"
                 onClick={() => onClick(apiEntry)}
                 variant={foundMethodType.variant}
             >

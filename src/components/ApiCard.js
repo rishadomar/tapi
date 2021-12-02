@@ -26,7 +26,7 @@ const ApiCard = ({ category, apiEntry }) => {
     };
 
     return (
-        <Card>
+        <Card id={apiEntry.name.replace('.json', '')}>
             <Card.Header>{apiEntry.name}</Card.Header>
             <Card.Body>
                 <Card.Text>
