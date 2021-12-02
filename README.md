@@ -3,8 +3,12 @@
 npm install
 npm start
 npm run cypress:open
+$(npm bin)/cypress run --record --key 39074c8e-444d-48de-85a7-cabf99b544bb --spec "cypress/integration/Chat_spec.js"
+To view in dashboard: https://dashboard.cypress.io/projects/bvchgq/runs
 
-## Dev
+
+
+## For Mediclinic API
 
 Use this as base:
 https://devecaapi01.mediclinic.co.za/index.html

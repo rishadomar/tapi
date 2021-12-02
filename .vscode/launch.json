@@ -7,10 +7,10 @@
         {
             "type": "node",
             "request": "launch",
-            "program": "${workspaceFolder}/utils/compare.js",
-            "cwd": "${workspaceFolder}/utils",
-            "name": "Test obj equality",
-            "args": ["1.json", "2.json"]
+            "program": "${workspaceFolder}/utils/generateCypressTests.js",
+            "cwd": "${workspaceFolder}",
+            "name": "generate cypress tests",
+            "args": ["src/data"]
         },
         {
             "type": "pwa-chrome",

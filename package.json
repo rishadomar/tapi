@@ -21,7 +21,8 @@
         "eject": "react-scripts eject",
         "cypress:open": "cypress open",
         "apply-prettier": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
-        "extractAllApis": "node utils/readAllApis.js src/data"
+        "extractAllApis": "node utils/readAllApis.js src/data",
+        "generateCypressTests": "node utils/generateCypressTests.js src/data"
     },
     "eslintConfig": {
         "extends": [
