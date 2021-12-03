@@ -2,7 +2,6 @@
 
 # generated files
 cypress
-public/all-apis.json
 
 # data files
 src/data
