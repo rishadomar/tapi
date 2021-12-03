@@ -1,5 +1,12 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# generated files
+cypress
+public/all-apis.json
+
+# data files
+src/data
+
 # dependencies
 /node_modules
 /.pnp
@@ -7,6 +14,7 @@
 
 # testing
 /coverage
+cypress.json
 
 # production
 /build
