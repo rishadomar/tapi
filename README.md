@@ -1,11 +1,26 @@
 ## Get started
 
+git clone
 npm install
 npm start
+npm extractAllApis PATH_TO_YOUR_DATA_FOLDER
+run generateCypressTests PATH_TO_YOUR_DATA_FOLDER
+run cleanCypressTests
 npm run cypress:open
-$(npm bin)/cypress run --record --key 39074c8e-444d-48de-85a7-cabf99b544bb --spec "cypress/integration/Chat_spec.js"
-To view in dashboard: https://dashboard.cypress.io/projects/bvchgq/runs
 
+## Cypress dashboard
+Login and register with Cypress
+Create a new project and copy the key and projectId provided
+Add a cypress.json in the root of the project and add the projectId
+```json
+{
+  "projectId": "bvchgq"
+}
+```
+$(npm bin)/cypress run --record --key <CYPRESS_KEY_HERE>
+Or run a specific spec by adding:
+    --spec "cypress/integration/Chat_spec.js"
+To view in dashboard: https://dashboard.cypress.io/projects/<CYPRESS_PROJECT_ID_HERE>/runs
 
 
 ## For Mediclinic API
