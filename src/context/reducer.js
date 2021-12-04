@@ -3,13 +3,14 @@ export const reducer = (state, action) => {
         case 'SET_APIS':
             return { entries: action.entries };
 
+        case 'SET_SETTINGS':
+            return { settings: action.settings };
+
         case 'UPDATE_API': {
             if (state.entries === null) {
                 return state;
             }
-            const a = state.entries.findIndex(
-                (entry) => entry.id === action.updatedApiEntry.id
-            );
+            const a = state.entries.findIndex((entry) => entry.id === action.updatedApiEntry.id);
             if (a < 0) {
                 return state;
             }

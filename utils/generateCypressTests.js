@@ -20,9 +20,9 @@ const addFile = (name) => {
     const posixFile = convertFilenameToPosix(name);
     const values = posixFile.split(path.posix.sep);
     let newEntry = JSON.parse(fileSystem.readFileSync(posixFile));
-    newEntry.category = values[2];
+    newEntry.category = values[values.length - 2];
     newEntry.filename = posixFile;
-    newEntry.name = values[3];
+    newEntry.name = values[values.length - 1];
     newEntry.id = ++totalAddedValues;
     jsonFileEntries.push(newEntry);
 };
@@ -107,7 +107,5 @@ const writeEntries = (category, fileEntries) => {
 /**
  * Main
  */
-for (let i = 2; i < process.argv.length; i++) {
-    readFileStructure(process.argv[i]);
-}
+readFileStructure(process.argv[2]);
 generateEntries();

@@ -1,12 +1,12 @@
-import Settings from 'data/settings.json';
 import * as ProjectConstants from 'projectConstants';
-import { createContext, React, useReducer } from 'react';
+import { createContext, React, useEffect, useReducer, useState } from 'react';
 import { reducer } from './reducer';
 
 export const ApiContext = createContext();
 
 const ApiProvider = ({ children }) => {
     const [apis, dispatch] = useReducer(reducer, null);
+    const [settings, setSettings] = useState(null);
 
     /**
      * Read all API entries
@@ -15,27 +15,74 @@ const ApiProvider = ({ children }) => {
         fetch(ProjectConstants.ALL_APIS_FILE, {
             headers: {
                 'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                Accept: 'application/json'
+            }
         })
             .then(function (response) {
                 if (!response.ok) {
-                    throw Error(
-                        'Failed to fetch json. Status code: ' + response.status
-                    );
+                    throw Error('Failed to fetch json. Status code: ' + response.status);
                 }
                 return response.json();
             })
             .then(function (myJson) {
-                setTimeout(
-                    () => dispatch({ type: 'SET_APIS', entries: myJson }),
-                    1000
-                );
+                setTimeout(() => dispatch({ type: 'SET_APIS', entries: myJson }), 1000);
             })
             .catch((error) => {
                 console.log('Error encountered. ', error.message);
             });
     };
+
+    /**
+     * Read all API entries
+     */
+    // eslint-disable-next-line no-unused-vars
+    const readSettings = () => {
+        return new Promise(() => {
+            fetch('settings.json', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                }
+            })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw Error(
+                            'Failed to read settings.json. Expected this file to be in the public folder. Status code: ' + response.status
+                        );
+                    }
+                    return response.json();
+                })
+                .then(function (myJson) {
+                    setSettings(myJson);
+                })
+                .catch((error) => {
+                    console.log('Error encountered. ', error.message);
+                });
+        });
+    };
+
+    useEffect(() => {
+        fetch('settings.json', {
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            }
+        })
+            .then(function (response) {
+                if (!response.ok) {
+                    throw Error(
+                        'Failed to read settings.json. Expected this file to be in the public folder. Status code: ' + response.status
+                    );
+                }
+                return response.json();
+            })
+            .then(function (myJson) {
+                setSettings(myJson);
+            })
+            .catch((error) => {
+                console.log('Error encountered. ', error.message);
+            });
+    }, []);
 
     /**
      * Check if there is a diff
@@ -103,8 +150,8 @@ const ApiProvider = ({ children }) => {
 
     /**
      * Build a query string.
-     * @param {*} jsonObject 
-     * @returns 
+     * @param {*} jsonObject
+     * @returns
      */
     const makeQueryString = (jsonObject) => {
         let queryString = '';
@@ -115,18 +162,18 @@ const ApiProvider = ({ children }) => {
                 queryString += '&';
             }
             queryString += key + '=' + JSON.stringify(jsonObject[key]);
-        })
-        return queryString;    
-    }
-    
+        });
+        return queryString;
+    };
+
     // eslint-disable-next-line no-unused-vars
     const _makeQueryString = (jsonObject) => {
         let searchParams = new URLSearchParams('');
         Object.keys(jsonObject).forEach((key) => {
             searchParams.set(key, JSON.stringify(jsonObject[key]));
-        })
-        return searchParams.toString();    
-    }
+        });
+        return searchParams.toString();
+    };
 
     /**
      * Execute the API
@@ -134,7 +181,7 @@ const ApiProvider = ({ children }) => {
      */
     const executeApi = (entry) => {
         return new Promise((resolve, reject) => {
-            console.log('Execute the api: ', entry, Settings);
+            console.log('Execute the api: ', entry, settings);
             let newEntryDetails = { ...entry };
             newEntryDetails.status = 'Busy';
 
@@ -142,8 +189,8 @@ const ApiProvider = ({ children }) => {
             // Replace the Settings values
             //
             let url = entry.api;
-            for (var key of Object.keys(Settings)) {
-                url = url.replace('${' + key + '}', Settings[key]);
+            for (var key of Object.keys(settings)) {
+                url = url.replace('${' + key + '}', settings[key]);
             }
 
             //
@@ -157,7 +204,7 @@ const ApiProvider = ({ children }) => {
             // Setup headers
             //
             let fetchDetails = {
-                method: entry.method,
+                method: entry.method
             };
             if (entry.headers) {
                 fetchDetails['headers'] = entry.headers;
@@ -166,7 +213,7 @@ const ApiProvider = ({ children }) => {
                 fetchDetails['body'] = JSON.stringify(entry.body);
             }
             console.log('Fetch Details', fetchDetails);
-            console.log("url", url);
+            console.log('url', url);
 
             //
             // Fetch
@@ -174,17 +221,10 @@ const ApiProvider = ({ children }) => {
             fetch(url, fetchDetails)
                 .then(function (response) {
                     console.log('Response:', response);
-                    if (
-                        response.ok ||
-                        (entry.expectedResponseId &&
-                            response.status == entry.expectedResponseId)
-                    ) {
+                    if (response.ok || (entry.expectedResponseId && response.status == entry.expectedResponseId)) {
                         return response.json();
                     } else {
-                        throw Error(
-                            'Failed to execute API. Status code: ' +
-                                response.status
-                        );
+                        throw Error('Failed to execute API. Status code: ' + response.status);
                     }
                 })
                 .then(function (myJson) {
@@ -195,15 +235,11 @@ const ApiProvider = ({ children }) => {
                         console.log('Same: ', entry.expectedResponse, myJson);
                     } else {
                         newEntryDetails.status = 'Diff';
-                        console.log(
-                            'Different: ',
-                            entry.expectedResponse,
-                            myJson
-                        );
+                        console.log('Different: ', entry.expectedResponse, myJson);
                     }
                     dispatch({
                         type: 'UPDATE_API',
-                        updatedApiEntry: newEntryDetails,
+                        updatedApiEntry: newEntryDetails
                     });
                     resolve();
                 })
@@ -213,18 +249,14 @@ const ApiProvider = ({ children }) => {
                     newEntryDetails.executeResult = null;
                     dispatch({
                         type: 'UPDATE_API',
-                        updatedApiEntry: newEntryDetails,
+                        updatedApiEntry: newEntryDetails
                     });
                     reject(error.message);
                 });
         });
     };
 
-    return (
-        <ApiContext.Provider value={{ readApis, apis, executeApi }}>
-            {children}
-        </ApiContext.Provider>
-    );
+    return <ApiContext.Provider value={{ readApis, apis, executeApi }}>{children}</ApiContext.Provider>;
 };
 
 export default ApiProvider;

@@ -3,8 +3,8 @@
 git clone git@gitlab.com:aux-studio/api-tester.git
 cd api-tester
 npm install
+optional clean: rm -f public/all-apis.json public/settings.json cypress/integration/*
 npm run extractAllApis PATH_TO_YOUR_DATA_FOLDER
-clean: rm -rf cypress/integration/*
 npm run generateCypressTests PATH_TO_YOUR_DATA_FOLDER
 npm start
 npm run cypress:open
@@ -42,8 +42,6 @@ This will generate public/all-apis.json which is consumed by the app.
 1. View expected result vs got result side by side (instead of below each other)
 2. View diffs color coded
 3. Add more cyprus tests for remaining tests
-4. Run cyprus via command line
-5. Move data folder out of repo into its own repo. Then link it in.
 6. Move this repo to github
 7. Write a getting started guide
 8. Where should cyprus run. On github page?
