@@ -1,0 +1,15 @@
+{
+    "api": "${BASE_URL}/usuarios/acBkUWC56vg3D2ik",
+    "method": "PUT",
+    "headers": {"Content-Type": "application/json"},
+    "description": "Update user's password",
+    "body": {
+        "nome": "Rishad Omar",
+        "email": "rishadomar@gmail.com",
+        "password": "testing123456",
+        "administrador": "false"
+    },
+    "expectedResponse": {
+        "message": "Registro alterado com sucesso"
+    }
+}

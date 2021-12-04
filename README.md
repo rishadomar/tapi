@@ -1,16 +1,16 @@
-## Get started
+## Get started with example data
 
 Expects node version > 12
 git clone git@gitlab.com:aux-studio/api-tester.git
 cd api-tester
 npm install
 optional clean: rm -f public/all-apis.json public/settings.json cypress/integration/*
-npm run extractAllApis PATH_TO_YOUR_DATA_FOLDER
-npm run generateCypressTests PATH_TO_YOUR_DATA_FOLDER
+npm run extractAllApis example
+npm run generateCypressTests example
 npm start
 npm run cypress:open
 
-## Create API data files
+## Create your own API data files
 cd PATH_TO_YOUR_DATA_FOLDER
 Create settings.json
 ```json

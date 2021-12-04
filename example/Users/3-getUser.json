@@ -1,0 +1,20 @@
+{
+    "api": "${BASE_URL}/usuarios?nome=Rishad Om&administrador=true",
+    "method": "GET",
+    "headers": { "Accept": "application/json" },
+    "description": "List registered users",
+    "expectedResponse": {
+        "quantidade": 1,
+        "usuarios": [
+            {
+                "nome": "Rishad Omar",
+                "email": "rishadomar@gmail.com",
+                "password": "teste",
+                "administrador": "true",
+                "_id": "*"
+            }
+        ]
+    }
+}
+
+

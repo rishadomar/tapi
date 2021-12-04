@@ -1,0 +1,16 @@
+{
+    "api": "${BASE_URL}/usuarios",
+    "method": "POST",
+    "headers": {"Content-Type": "application/json"},
+    "description": "Register a new user",
+    "body": {
+        "nome": "Rishad Omar",
+        "email": "rishadomar@gmail.com",
+        "password": "testing123",
+        "administrador": "true"
+    },
+    "expectedResponse": {
+        "message": "Cadastro realizado com sucesso",
+        "_id": "*"
+    }
+}

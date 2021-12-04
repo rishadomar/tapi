@@ -1,0 +1,16 @@
+{
+    "api": "${BASE_URL}/usuarios",
+    "method": "POST",
+    "headers": {"Content-Type": "application/json"},
+    "description": "Register a new user with duplicate email",
+    "body": {
+        "nome": "Another user",
+        "email": "rishadomar@gmail.com",
+        "password": "testing123",
+        "administrador": "true"
+    },
+    "expectedResponseId": 400,
+    "expectedResponse": {
+        "message": "Este email já está sendo usado"
+    }
+}
