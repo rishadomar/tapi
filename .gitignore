@@ -3,9 +3,7 @@
 # generated files
 cypress
 public/all-apis.json
-
-# data files
-src/data
+public/settings.json
 
 # dependencies
 /node_modules
