@@ -1,5 +1,6 @@
 ## Get started
 
+Expects node version > 12
 git clone git@gitlab.com:aux-studio/api-tester.git
 cd api-tester
 npm install
@@ -8,6 +9,35 @@ npm run extractAllApis PATH_TO_YOUR_DATA_FOLDER
 npm run generateCypressTests PATH_TO_YOUR_DATA_FOLDER
 npm start
 npm run cypress:open
+
+## Create API data files
+cd PATH_TO_YOUR_DATA_FOLDER
+Create settings.json
+```json
+{
+    "BASE_URL": "https://...",
+    "OTHER_VARIABLE_KEY": "SOME VALUE"
+}
+```
+Add folders with API files in each folder
+Example of an API file:
+```json
+{
+    "api": "${BASE_URL}/users/${KEY_FROM_SETTINGS}?offset=0&limit=20",
+    "method": "GET",
+    "headers": { "Accept": "application/json" },
+    "description": "Get all the ... for user",
+    "expectedResponse": {
+        "userId": "user id here",
+        "invoices": [
+            {
+                "id": "#12345",
+                "date": "*",
+            }
+        ]
+    }
+}
+```
 
 ## Cypress dashboard
 Login and register with Cypress
