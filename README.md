@@ -1,11 +1,12 @@
 ## Get started
 
-git clone
+git clone git@gitlab.com:aux-studio/api-tester.git
+cd api-tester
 npm install
+npm run extractAllApis PATH_TO_YOUR_DATA_FOLDER
+clean: rm -rf cypress/integration/*
+npm run generateCypressTests PATH_TO_YOUR_DATA_FOLDER
 npm start
-npm extractAllApis PATH_TO_YOUR_DATA_FOLDER
-run generateCypressTests PATH_TO_YOUR_DATA_FOLDER
-run cleanCypressTests
 npm run cypress:open
 
 ## Cypress dashboard
@@ -14,7 +15,7 @@ Create a new project and copy the key and projectId provided
 Add a cypress.json in the root of the project and add the projectId
 ```json
 {
-  "projectId": "bvchgq"
+  "projectId": "<CYPRESS_PROJECT_ID_HERE>"
 }
 ```
 $(npm bin)/cypress run --record --key <CYPRESS_KEY_HERE>

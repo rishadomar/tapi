@@ -41,15 +41,6 @@ const readFileStructure = (folder) => {
         });
 };
 
-const readFileContents = () => {
-    jsonFileEntries.forEach((fileEntry) => {
-        console.log('Category: ' + fileEntry.category);
-        fileEntry.apis.forEach((f) => {
-            console.log(`\t ${f.name} (${f.filename})`);
-        });
-    });
-};
-
 const writeFileContents = () => {
     const fd = fileSystem.openSync(ExtractedCodeInFile, 'w');
     fileSystem.writeSync(fd, JSON.stringify(jsonFileEntries, null, 4));
@@ -62,7 +53,4 @@ const writeFileContents = () => {
 for (let i = 2; i < process.argv.length; i++) {
     readFileStructure(process.argv[i]);
 }
-//console.log("File entries:", jsonFileEntries);
-
-//readFileContents();
 writeFileContents();
