@@ -1,5 +1,5 @@
 {
-    "api": "${BASE_URL}/usuarios?nome=Rishad Om&administrador=true",
+    "api": "${BASE_URL}/usuarios?nome=Rishad Om",
     "method": "GET",
     "headers": { "Accept": "application/json" },
     "description": "List registered users",

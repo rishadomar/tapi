@@ -13,6 +13,14 @@
             "args": ["src/data"]
         },
         {
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/stringUtils.js",
+            "cwd": "${workspaceFolder}",
+            "name": "string utils",
+            "args": ["src/data"]
+        },
+        {
             "type": "pwa-chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",

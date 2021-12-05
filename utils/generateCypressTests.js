@@ -92,7 +92,7 @@ const writeEntries = (category, fileEntries) => {
         
     fileEntries.forEach(fileEntry => {
         writeLine(fd, 1, `it('${fileEntry.description}', () => {`)
-        writeLine(fd, 2, `cy.get('#${fileEntry.name.replace(".json", "")}').within(() => {`)
+        writeLine(fd, 2, `cy.get('#${fileEntry.name}').within(() => {`)
         writeLine(fd, 3, `cy.get('[data-method=1]').click();`)
         writeLine(fd, 3, `cy.get('[data-cy=result]').should('have.text', 'Success');`)
         writeLine(fd, 2, `})`)

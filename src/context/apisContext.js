@@ -201,7 +201,7 @@ const ApiProvider = ({ children }) => {
             //
             // Replace Previous result
             //
-            url = matchAndReplace(url, /\$\{PREVIOUS_RESULT./g, apis.resultOfLastApiRequest);
+            url = matchAndReplace(url, /\$\{PREVIOUS_RESULT./g, apis.previousResults);
             //console.log("Result from Previous API: ", apis.resultOfLastApiRequest);
 
             //
@@ -240,7 +240,11 @@ const ApiProvider = ({ children }) => {
                 })
                 .then(function (resultAsJson) {
                     newEntryDetails.executeResult = resultAsJson;
-                    dispatch({type: 'SET_RESULT_OF_LAST_API_REQUEST', resultAsJson});
+                    dispatch({
+                        type: 'SET_RESULT_OF_LAST_API_REQUEST',
+                        testCase: entry.name,
+                        resultAsJson
+                    });
 
                     if (objectEquals(entry.expectedResponse, resultAsJson)) {
                         newEntryDetails.status = 'Success';

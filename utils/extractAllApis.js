@@ -16,7 +16,7 @@ const addFile = (name) => {
     let newEntry = JSON.parse(fileSystem.readFileSync(posixFile));
     newEntry.category = values[values.length - 2];
     newEntry.filename = posixFile;
-    newEntry.name = values[values.length - 1];
+    newEntry.name = values[values.length - 1].replace('.json', '');
     newEntry.id = ++totalAddedValues;
     jsonFileEntries.push(newEntry);
 };

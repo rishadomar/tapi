@@ -1,5 +1,5 @@
 {
-    "api": "${BASE_URL}/usuarios/${PREVIOUS_RESULT._id}",
+    "api": "${BASE_URL}/usuarios/${PREVIOUS_RESULT.1-registerUser._id}",
     "method": "PUT",
     "headers": {"Content-Type": "application/json"},
     "description": "Update user's password",
