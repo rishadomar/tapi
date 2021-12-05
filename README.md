@@ -1,6 +1,13 @@
 ## Get started with example data
 
-Expects node version > 12
+Expects the following to be installed:
+```
+node (version > 12)
+npm
+react (version 17.*)
+cypress (version 9.1.*)
+```
+
 ```sh
 git clone git@gitlab.com:aux-studio/api-tester.git
 cd api-tester
