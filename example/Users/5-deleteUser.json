@@ -1,0 +1,9 @@
+{
+    "api": "${BASE_URL}/usuarios/${PREVIOUS_RESULT._id}",
+    "method": "DELETE",
+    "headers": {"Content-Type": "application/json"},
+    "description": "Delete user",
+    "expectedResponse": {
+        "message": "Registro excluído com sucesso"
+    }
+}

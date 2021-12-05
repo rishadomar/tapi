@@ -1,11 +1,13 @@
 import * as ProjectConstants from 'projectConstants';
 import { createContext, React, useEffect, useReducer, useState } from 'react';
+import { matchAndReplace } from 'stringUtils';
 import { reducer } from './reducer';
 
 export const ApiContext = createContext();
 
 const ApiProvider = ({ children }) => {
     const [apis, dispatch] = useReducer(reducer, null);
+    //const { apis } = useContext(ApiContext);
     const [settings, setSettings] = useState(null);
 
     /**
@@ -61,6 +63,9 @@ const ApiProvider = ({ children }) => {
         });
     };
 
+    /**
+     * Read settings
+     */
     useEffect(() => {
         fetch('settings.json', {
             headers: {
@@ -194,6 +199,12 @@ const ApiProvider = ({ children }) => {
             }
 
             //
+            // Replace Previous result
+            //
+            url = matchAndReplace(url, /\$\{PREVIOUS_RESULT./g, apis.resultOfLastApiRequest);
+            //console.log("Result from Previous API: ", apis.resultOfLastApiRequest);
+
+            //
             // Add any parameters
             //
             if (entry.parameters) {
@@ -227,15 +238,16 @@ const ApiProvider = ({ children }) => {
                         throw Error('Failed to execute API. Status code: ' + response.status);
                     }
                 })
-                .then(function (myJson) {
-                    newEntryDetails.executeResult = myJson;
+                .then(function (resultAsJson) {
+                    newEntryDetails.executeResult = resultAsJson;
+                    dispatch({type: 'SET_RESULT_OF_LAST_API_REQUEST', resultAsJson});
 
-                    if (objectEquals(entry.expectedResponse, myJson)) {
+                    if (objectEquals(entry.expectedResponse, resultAsJson)) {
                         newEntryDetails.status = 'Success';
-                        console.log('Same: ', entry.expectedResponse, myJson);
+                        console.log('Same: ', entry.expectedResponse, resultAsJson);
                     } else {
                         newEntryDetails.status = 'Diff';
-                        console.log('Different: ', entry.expectedResponse, myJson);
+                        console.log('Different: ', entry.expectedResponse, resultAsJson);
                     }
                     dispatch({
                         type: 'UPDATE_API',

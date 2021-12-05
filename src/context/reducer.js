@@ -3,8 +3,8 @@ export const reducer = (state, action) => {
         case 'SET_APIS':
             return { entries: action.entries };
 
-        case 'SET_SETTINGS':
-            return { settings: action.settings };
+        case 'SET_RESULT_OF_LAST_API_REQUEST':
+            return { ...state, resultOfLastApiRequest: action.resultAsJson };
 
         case 'UPDATE_API': {
             if (state.entries === null) {
