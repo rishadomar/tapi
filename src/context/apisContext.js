@@ -14,6 +14,7 @@ const ApiProvider = ({ children }) => {
      * Read all API entries
      */
     const readApis = () => {
+        return new Promise((resolve, reject) => {
         fetch(ProjectConstants.ALL_APIS_FILE, {
             headers: {
                 'Content-Type': 'application/json',
@@ -28,10 +29,12 @@ const ApiProvider = ({ children }) => {
             })
             .then(function (myJson) {
                 setTimeout(() => dispatch({ type: 'SET_APIS', entries: myJson }), 1000);
+                resolve(true);
             })
             .catch((error) => {
-                console.log('Error encountered. ', error.message);
+                reject('Error encountered reading: ' + ProjectConstants.ALL_APIS_FILE + ' Reason: ' + error);
             });
+        })
     };
 
     /**
