@@ -14,16 +14,20 @@ To run headless: $(npm bin)/cypress run
 ```
 
 ## Create your own API data files
+```sh
 cd PATH_TO_YOUR_DATA_FOLDER
 Create settings.json
+```
 ```json
 {
     "BASE_URL": "https://...",
     "OTHER_VARIABLE_KEY": "SOME VALUE"
 }
 ```
+```sh
 Add folders with API files in each folder
 Example of an API file:
+```
 ```json
 {
     "api": "${BASE_URL}/users/${KEY_FROM_SETTINGS}?offset=0&limit=20",
