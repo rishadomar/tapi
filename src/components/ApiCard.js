@@ -8,7 +8,7 @@ import Card from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
 import Error from './Error';
 
-const ApiCard = ({ category, apiEntry }) => {
+const ApiCard = ({ apiEntry }) => {
     const { executeApi } = useContext(ApiContext);
     const uniqueId = `entry-${apiEntry.id}`;
     const [open, setOpen] = useState(false);
@@ -29,10 +29,10 @@ const ApiCard = ({ category, apiEntry }) => {
 
     return (
         <Card id={apiEntry.name.replace('.json', '')}>
-            <Card.Header>{apiEntry.name}</Card.Header>
+            <Card.Header><strong>{apiEntry.description}</strong>&nbsp;({apiEntry.name})</Card.Header>
             <Card.Body>
                 <Card.Text>
-                    {category} {apiEntry.description}
+                    {apiEntry.api}
                 </Card.Text>
                 <Button variant="link" onClick={() => setOpen(!open)}>
                     {open ? 'Collapse' : 'Show'}

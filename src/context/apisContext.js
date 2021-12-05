@@ -246,6 +246,7 @@ const ApiProvider = ({ children }) => {
                     return response.json();
                 })
                 .then(function (resultAsJson) {
+                    newEntryDetails.api = url;
                     newEntryDetails.executeResult = resultAsJson;
                     dispatch({
                         type: 'SET_RESULT_OF_LAST_API_REQUEST',
