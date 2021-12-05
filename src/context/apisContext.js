@@ -15,26 +15,26 @@ const ApiProvider = ({ children }) => {
      */
     const readApis = () => {
         return new Promise((resolve, reject) => {
-        fetch(ProjectConstants.ALL_APIS_FILE, {
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-            }
-        })
-            .then(function (response) {
-                if (!response.ok) {
-                    throw Error('Failed to fetch json. Status code: ' + response.status);
+            fetch(ProjectConstants.ALL_APIS_FILE, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
                 }
-                return response.json();
             })
-            .then(function (myJson) {
-                setTimeout(() => dispatch({ type: 'SET_APIS', entries: myJson }), 1000);
-                resolve(true);
-            })
-            .catch((error) => {
-                reject('Error encountered reading: ' + ProjectConstants.ALL_APIS_FILE + ' Reason: ' + error);
-            });
-        })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw Error('Failed to fetch json. Status code: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(function (myJson) {
+                    setTimeout(() => dispatch({ type: 'SET_APIS', entries: myJson }), 1000);
+                    resolve(true);
+                })
+                .catch((error) => {
+                    reject('Error encountered reading: ' + ProjectConstants.ALL_APIS_FILE + ' Reason: ' + error);
+                });
+        });
     };
 
     /**
@@ -232,14 +232,18 @@ const ApiProvider = ({ children }) => {
             //
             // Fetch
             //
+            let apiRequestCode;
+            let apiRequestSuccess;
             fetch(url, fetchDetails)
                 .then(function (response) {
                     console.log('Response:', response);
                     if (response.ok || (entry.expectedResponseId && response.status == entry.expectedResponseId)) {
-                        return response.json();
+                        apiRequestSuccess = true;
                     } else {
-                        throw Error('Failed to execute API. Status code: ' + response.status);
+                        apiRequestSuccess = false;
                     }
+                    apiRequestCode = response.status;
+                    return response.json();
                 })
                 .then(function (resultAsJson) {
                     newEntryDetails.executeResult = resultAsJson;
@@ -248,7 +252,9 @@ const ApiProvider = ({ children }) => {
                         testCase: entry.name,
                         resultAsJson
                     });
-
+                    if (apiRequestSuccess === false) {
+                        throw Error('API failed. Code: ' + apiRequestCode);
+                    }
                     if (objectEquals(entry.expectedResponse, resultAsJson)) {
                         newEntryDetails.status = 'Success';
                         console.log('Same: ', entry.expectedResponse, resultAsJson);
@@ -265,7 +271,6 @@ const ApiProvider = ({ children }) => {
                 .catch((error) => {
                     console.log('Error encountered. ', error.message);
                     newEntryDetails.status = 'Failed';
-                    newEntryDetails.executeResult = null;
                     dispatch({
                         type: 'UPDATE_API',
                         updatedApiEntry: newEntryDetails

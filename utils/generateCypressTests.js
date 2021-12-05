@@ -1,56 +1,12 @@
 const fileSystem = require('fs');
-const path = require('path');
+const { readFileStructure } = require('./readFolder');
 
 const GeneratedTestInPath = 'cypress/integration/';
-
-let jsonFileEntries = [];
-let totalAddedValues = 0;
-
-/**
- * Convert name
- */
-const convertFilenameToPosix = (filename) => {
-    return filename.split(path.sep).join(path.posix.sep);
-};
-
-/**
- * Add entry
- */
-const addFile = (name) => {
-    const posixFile = convertFilenameToPosix(name);
-    const values = posixFile.split(path.posix.sep);
-    let newEntry = JSON.parse(fileSystem.readFileSync(posixFile));
-    newEntry.category = values[values.length - 2];
-    newEntry.filename = posixFile;
-    newEntry.name = values[values.length - 1];
-    newEntry.id = ++totalAddedValues;
-    jsonFileEntries.push(newEntry);
-};
-
-/**
- * Extract code from files in the folder
- *
- * @param {*} folder
- */
-const readFileStructure = (folder) => {
-    fileSystem
-        .readdirSync(folder, { withFileTypes: true })
-        .forEach((dirEntry) => {
-            if (dirEntry.isDirectory()) {
-                readFileStructure(path.join(folder, dirEntry.name));
-            } else if (
-                dirEntry.name !== 'settings.json' &&
-                dirEntry.name.match(/.json/)
-            ) {
-                addFile(path.join(folder, dirEntry.name));
-            }
-        });
-};
 
 /**
  * Generate 
  */
-const generateEntries = () => {
+const generateEntries = (jsonFileEntries) => {
     let currentCategory;
     let fileEntries = [];
     jsonFileEntries.forEach((fileEntry) => {
@@ -91,7 +47,7 @@ const writeEntries = (category, fileEntries) => {
     writeLine(fd, 1, `})`);
         
     fileEntries.forEach(fileEntry => {
-        writeLine(fd, 1, `it('${fileEntry.description}', () => {`)
+        writeLine(fd, 1, `it("${fileEntry.description}", () => {`)
         writeLine(fd, 2, `cy.get('#${fileEntry.name}').within(() => {`)
         writeLine(fd, 3, `cy.get('[data-method=1]').click();`)
         writeLine(fd, 3, `cy.get('[data-cy=result]').should('have.text', 'Success');`)
@@ -107,5 +63,7 @@ const writeEntries = (category, fileEntries) => {
 /**
  * Main
  */
-readFileStructure(process.argv[2]);
-generateEntries();
+let jsonFileEntries = [];
+let counter = 0;
+readFileStructure({jsonFileEntries, counter}, process.argv[2]);
+generateEntries(jsonFileEntries);

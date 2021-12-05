@@ -10,7 +10,7 @@
             "program": "${workspaceFolder}/utils/generateCypressTests.js",
             "cwd": "${workspaceFolder}",
             "name": "generate cypress tests",
-            "args": ["src/data"]
+            "args": ["example"]
         },
         {
             "type": "node",

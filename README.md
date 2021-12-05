@@ -1,6 +1,7 @@
 ## Get started with example data
 
 Expects node version > 12
+```sh
 git clone git@gitlab.com:aux-studio/api-tester.git
 cd api-tester
 npm install
@@ -9,6 +10,8 @@ npm run extractAllApis example
 npm run generateCypressTests example
 npm start
 npm run cypress:open
+To run headless: $(npm bin)/cypress run 
+```
 
 ## Create your own API data files
 cd PATH_TO_YOUR_DATA_FOLDER
@@ -45,7 +48,11 @@ Create a new project and copy the key and projectId provided
 Add a cypress.json in the root of the project and add the projectId
 ```json
 {
-  "projectId": "<CYPRESS_PROJECT_ID_HERE>"
+  "projectId": "<CYPRESS_PROJECT_ID_HERE>",
+  "component": {
+    "testFiles": "**/*.test.{js,ts,jsx,tsx}",
+    "componentFolder": "src"
+  }
 }
 ```
 $(npm bin)/cypress run --record --key <CYPRESS_KEY_HERE>
@@ -76,6 +83,8 @@ This will generate public/all-apis.json which is consumed by the app.
 7. Write a getting started guide
 8. Where should cyprus run. On github page?
 9. Be able to Login for MyChat, then run APIs as authenticated user
+10. Show error on failure of an execute. Like: 500 reason: xxxx
+11. Show URL (+ final URl with replaced values) being run
 
 ## Cyprus docs
 

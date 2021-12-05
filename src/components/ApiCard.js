@@ -6,19 +6,21 @@ import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
+import Error from './Error';
 
 const ApiCard = ({ category, apiEntry }) => {
     const { executeApi } = useContext(ApiContext);
     const uniqueId = `entry-${apiEntry.id}`;
     const [open, setOpen] = useState(false);
     const [busy, setBusy] = useState(false);
+    const [error, setError] = useState(null);
 
     const execute = (apiEntry) => {
         setBusy(true);
         executeApi(apiEntry)
             .then(() => {})
             .catch((message) => {
-                console.log('error: ', message);
+                setError(message);
             })
             .finally(() => {
                 setBusy(false);
@@ -33,26 +35,15 @@ const ApiCard = ({ category, apiEntry }) => {
                     {category} {apiEntry.description}
                 </Card.Text>
                 <Button variant="link" onClick={() => setOpen(!open)}>
-                    {open ? "Collapse" : "Show"}
+                    {open ? 'Collapse' : 'Show'}
                 </Button>
-                <MethodButton
-                    busy={busy}
-                    onClick={execute}
-                    apiEntry={apiEntry}
-                />
+                <MethodButton busy={busy} onClick={execute} apiEntry={apiEntry} />
                 <Result success={apiEntry.status} />
+                {error && <Error error={error} />}
                 <Collapse in={open}>
                     <div id={uniqueId}>
-                        <Json
-                            title="Expected"
-                            entry={apiEntry.expectedResponse}
-                        />
-                        {apiEntry.executeResult && (
-                            <Json
-                                title="Result JSON"
-                                entry={apiEntry.executeResult}
-                            />
-                        )}
+                        <Json title="Expected" entry={apiEntry.expectedResponse} />
+                        {apiEntry.executeResult && <Json title="Result JSON" entry={apiEntry.executeResult} />}
                     </div>
                 </Collapse>
             </Card.Body>
