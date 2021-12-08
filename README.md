@@ -1,11 +1,53 @@
-## Get started with example data
+## Introduction
+
+# What are APIs
+
+APIs are used extensively in Programming.
+I see APIs as Requests and Questions
+For example: Hey system, add this new contact to your database. 
+Here are the details:
+Name: Joe Bloggs
+DOB: 19890811
+
+And the system replies: Successfully added
+Or maybe Unsuccessful adding new contact. The contact number is missing.
+
+APIs use many formats and underlying architectures to make such requests and receive responses.
+This project focuses on APIs that use the REST format.
+Read more on REST APIs https://www.smashingmagazine.com/2018/01/understanding-using-rest-api/
+
+# Swagger
+
+A developer will build APIs and document the APIs available for other programs to call.
+Swagger is a useful tool used to document the APIs
+
+Read more about Swagger: https://swagger.io/
+
+# Postman
+
+Developers who use APIs find it useful to test the APIs before coding it into their programs.
+Postman is a useful tool that allows you to do that.
+Read more about Postman: https://www.postman.com/
+
+There's even Postwoman which is now https://hoppscotch.io/
+
+# Tapi (Test APIs)
+
+While the above tools are useful and indepensible to developers I needed a tool to help me test the APIs
+Tapi is a react app which you can clone on your own server or dev machine.
+Then, create a folder with API requests and expected responses.
+Use Tapi to execute the APIs and compare the responses with your expected responses.
+A test succeeds if the response is equal'ish to the expected response.
+Equal'ish because some fields (that you specify) may be ignored. For example, generated unique IDs or datetime stamps.
+
+## Get started with a sample API set
 
 Expects the following to be installed:
 ```
 node (version > 12)
 npm
 react (version 17.*)
-cypress (version 9.1.*)
+cypress (version 9.1.*) ... optional
 ```
 
 ```sh
@@ -28,7 +70,7 @@ Create settings.json
 ```json
 {
     "BASE_URL": "https://...",
-    "OTHER_VARIABLE_KEY": "SOME VALUE"
+    "ANY_OTHER_VARIABLE_KEY": "SOME VALUE"
 }
 ```
 ```sh
