@@ -51,8 +51,8 @@ cypress (version 9.1.*) ... optional
 ```
 
 ```sh
-git clone git@gitlab.com:aux-studio/api-tester.git
-cd api-tester
+git clone https://github.com/rishadomar/tapi.git
+cd tapi
 npm install
 optional clean: rm -f public/all-apis.json public/settings.json cypress/integration/*
 npm run extractAllApis example
