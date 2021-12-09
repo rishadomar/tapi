@@ -114,19 +114,6 @@ Or run a specific spec by adding:
 To view in dashboard: https://dashboard.cypress.io/projects/<CYPRESS_PROJECT_ID_HERE>/runs
 
 
-## For Mediclinic API
-
-Use this as base:
-https://devecaapi01.mediclinic.co.za/index.html
-
-Add your APIs in data folder.
-Use subfolders to categorise your APIs.
-Look at the example APIs to build your own.
-Create a .env file in data folder with variables that you wish to replace in your data APIs.
-On any change to the data folder, run:
-npm run extractAllApis
-This will generate public/all-apis.json which is consumed by the app.
-
 ## Coming up
 
 1. View expected result vs got result side by side (instead of below each other)
