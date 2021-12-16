@@ -54,7 +54,8 @@ cypress (version 9.1.*) ... optional
 git clone https://github.com/rishadomar/tapi.git
 cd tapi
 npm install
-optional clean: rm -f public/all-apis.json public/settings.json cypress/integration/*
+rm -rf cypress/*
+rm -f public/all-apis.json public/settings.json cypress/integration/*
 npm run extractAllApis example
 npm run generateCypressTests example
 npm start
@@ -116,15 +117,10 @@ To view in dashboard: https://dashboard.cypress.io/projects/<CYPRESS_PROJECT_ID_
 
 ## Coming up
 
-1. View expected result vs got result side by side (instead of below each other)
-2. View diffs color coded
-3. Add more cyprus tests for remaining tests
-6. Move this repo to github
-7. Write a getting started guide
-8. Where should cyprus run. On github page?
-9. Be able to Login for MyChat, then run APIs as authenticated user
-10. Show error on failure of an execute. Like: 500 reason: xxxx
-11. Show URL (+ final URl with replaced values) being run
+1. View diffs color coded
+2. Where should cyprus run. On github page?
+3. Be able to Login, then run APIs as authenticated user
+4. Show error on failure of an execute. Like: 500 reason: xxxx
 
 ## Cyprus docs
 
