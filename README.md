@@ -4,7 +4,7 @@
 
 APIs are used extensively in Programming.
 I see APIs as Requests and Questions
-For example: Hey system, add this new contact to your database. 
+For example: Hey system, add this new contact to your database.
 Here are the details:
 Name: Joe Bloggs
 DOB: 19890811
@@ -21,19 +21,14 @@ Read more on REST APIs https://www.smashingmagazine.com/2018/01/understanding-us
 A developer will build APIs and document the APIs available for other programs to call.
 Swagger is a useful tool used to document the APIs
 
-Read more about Swagger: https://swagger.io/
-
 # Postman
 
 Developers who use APIs find it useful to test the APIs before coding it into their programs.
 Postman is a useful tool that allows you to do that.
-Read more about Postman: https://www.postman.com/
-
-There's even Postwoman which is now https://hoppscotch.io/
 
 # Tapi (Test APIs)
 
-While the above tools are useful and indepensible to developers I needed a tool to help me test the APIs
+While the above tools are useful and indepensible to developers, Tapi is a tool to help test APIs.
 Tapi is a react app which you can clone on your own server or dev machine.
 Then, create a folder with API requests and expected responses.
 Use Tapi to execute the APIs and compare the responses with your expected responses.
@@ -43,41 +38,47 @@ Equal'ish because some fields (that you specify) may be ignored. For example, ge
 ## Get started with a sample API set
 
 Expects the following to be installed:
+
 ```
 node (version > 12)
 npm
 react (version 17.*)
-cypress (version 9.1.*) ... optional
 ```
 
 ```sh
 git clone https://github.com/rishadomar/tapi.git
 cd tapi
 npm install
-rm -rf cypress/*
-rm -f public/all-apis.json public/settings.json cypress/integration/*
-npm run extractAllApis example
+rm -rf cypress/* # Clean up sample projects. Tapi will generate Test scripts for you.
+rm -f public/all-apis.json public/settings.json cypress/integration/* # A regular clean to run before switching data sources
+npm run extractAllApis example # "example" is a the sample folder of data. You can specify the folder that contains your API specs.
 npm run generateCypressTests example
-npm start
-npm run cypress:open
-To run headless: $(npm bin)/cypress run 
+npm start # Run the GUI. Test your APIs manually
+npm run cypress:open # Run a GUI and execute your tests hands-free!
+$(npm bin)/cypress run # Run on the console with no GUI. Typically, this is added to your CI/CD.
 ```
 
 ## Create your own API data files
+
+Look at the example folder included in this repo to see some examples.
+
 ```sh
 cd PATH_TO_YOUR_DATA_FOLDER
 Create settings.json
 ```
+
 ```json
 {
     "BASE_URL": "https://...",
     "ANY_OTHER_VARIABLE_KEY": "SOME VALUE"
 }
 ```
+
 ```sh
 Add folders with API files in each folder
 Example of an API file:
 ```
+
 ```json
 {
     "api": "${BASE_URL}/users/${KEY_FROM_SETTINGS}?offset=0&limit=20",
@@ -89,31 +90,33 @@ Example of an API file:
         "invoices": [
             {
                 "id": "#12345",
-                "date": "*",
+                "date": "*"
             }
         ]
     }
 }
 ```
 
-## Cypress dashboard
+## Cypress dashboard (optional)
+
 Login and register with Cypress
 Create a new project and copy the key and projectId provided
 Add a cypress.json in the root of the project and add the projectId
+
 ```json
 {
-  "projectId": "<CYPRESS_PROJECT_ID_HERE>",
-  "component": {
-    "testFiles": "**/*.test.{js,ts,jsx,tsx}",
-    "componentFolder": "src"
-  }
+    "projectId": "<CYPRESS_PROJECT_ID_HERE>",
+    "component": {
+        "testFiles": "**/*.test.{js,ts,jsx,tsx}",
+        "componentFolder": "src"
+    }
 }
 ```
+
 $(npm bin)/cypress run --record --key <CYPRESS_KEY_HERE>
 Or run a specific spec by adding:
-    --spec "cypress/integration/Chat_spec.js"
+--spec "cypress/integration/Chat_spec.js"
 To view in dashboard: https://dashboard.cypress.io/projects/<CYPRESS_PROJECT_ID_HERE>/runs
-
 
 ## Coming up
 
@@ -122,10 +125,3 @@ To view in dashboard: https://dashboard.cypress.io/projects/<CYPRESS_PROJECT_ID_
 3. Be able to Login, then run APIs as authenticated user
 4. Show error on failure of an execute. Like: 500 reason: xxxx
 
-## Cyprus docs
-
-https://docs.cypress.io/guides/core-concepts/interacting-with-elements#Actionability
-
-## Eslint + Prettier
-
-https://gist.github.com/bradtraversy/aab26d1e8983d9f8d79be1a9ca894ab4
