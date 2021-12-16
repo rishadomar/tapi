@@ -19,11 +19,13 @@ export const matchAndReplace = (str, regexp, valueSet) => {
         const fieldsPosition = fullMatch.indexOf('.');
         const parts = fullMatch.substring(fieldsPosition + 1).split('.');
         const values = valueSet.find(v => v.testCase === parts[0]);
-        let value = values.result;
-        for (let i = 1; i < parts.length; i++) {
-            value = value[parts[i]];
+        if (values) {
+            let value = values.result;
+            for (let i = 1; i < parts.length; i++) {
+                value = value[parts[i]];
+            }
+            resultMatches.push({field: str.substring(match.index, endPos + 1), value});
         }
-        resultMatches.push({field: str.substring(match.index, endPos + 1), value});
     }
 
     let resultStr = str;

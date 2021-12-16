@@ -21,8 +21,8 @@ const ApiCard = ({ apiEntry }) => {
         setBusy(true);
         executeApi(apiEntry)
             .then(() => {})
-            .catch((message) => {
-                setError(message);
+            .catch((error) => {
+                setError(error.message);
             })
             .finally(() => {
                 setBusy(false);

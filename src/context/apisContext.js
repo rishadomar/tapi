@@ -38,35 +38,6 @@ const ApiProvider = ({ children }) => {
     };
 
     /**
-     * Read all API entries
-     */
-    // eslint-disable-next-line no-unused-vars
-    const readSettings = () => {
-        return new Promise(() => {
-            fetch('settings.json', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json'
-                }
-            })
-                .then(function (response) {
-                    if (!response.ok) {
-                        throw Error(
-                            'Failed to read settings.json. Expected this file to be in the public folder. Status code: ' + response.status
-                        );
-                    }
-                    return response.json();
-                })
-                .then(function (myJson) {
-                    setSettings(myJson);
-                })
-                .catch((error) => {
-                    console.log('Error encountered. ', error.message);
-                });
-        });
-    };
-
-    /**
      * Read settings
      */
     useEffect(() => {
@@ -84,10 +55,11 @@ const ApiProvider = ({ children }) => {
                 }
                 return response.json();
             })
-            .then(function (myJson) {
-                setSettings(myJson);
+            .then(function (settingsAsJson) {
+                setSettings(settingsAsJson);
             })
             .catch((error) => {
+                setSettings({});
                 console.log('Error encountered. ', error.message);
             });
     }, []);
@@ -204,8 +176,9 @@ const ApiProvider = ({ children }) => {
             //
             // Replace Previous result
             //
-            url = matchAndReplace(url, /\$\{PREVIOUS_RESULT./g, apis.previousResults);
-            //console.log("Result from Previous API: ", apis.resultOfLastApiRequest);
+            if (apis.previousResults) {
+                url = matchAndReplace(url, /\$\{PREVIOUS_RESULT./g, apis.previousResults);
+            }
 
             //
             // Add any parameters
