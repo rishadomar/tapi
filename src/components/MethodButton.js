@@ -8,11 +8,11 @@ import Spinner from 'react-bootstrap/Spinner';
 const methodTypes = [
     {
         method: ProjectConstants.MethodGet,
-        variant: 'success',
+        variant: 'primary',
     },
     {
         method: ProjectConstants.MethodPost,
-        variant: 'secondary',
+        variant: 'info',
     },
     {
         method: ProjectConstants.MethodPut,
@@ -45,7 +45,7 @@ const MethodButton = ({ busy, onClick, apiEntry }) => {
 
     if (busy) {
         return (
-            <Button variant={foundMethodType.variant} disabled>
+            <Button style={{minWidth: ProjectConstants.MINIMUM_BUTTON_WIDTH}} variant={foundMethodType.variant} disabled>
                 <Spinner
                     as="span"
                     animation="grow"
@@ -62,6 +62,7 @@ const MethodButton = ({ busy, onClick, apiEntry }) => {
                 data-method="1"
                 onClick={() => onClick(apiEntry)}
                 variant={foundMethodType.variant}
+                style={{minWidth: ProjectConstants.MINIMUM_BUTTON_WIDTH}}
             >
                 {apiEntry.method}
             </Button>

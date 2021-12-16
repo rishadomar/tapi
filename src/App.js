@@ -1,4 +1,4 @@
-import CardList from 'components/CardList';
+import ApiCardList from 'components/ApiCardList';
 import Title from 'components/Title';
 import ApiProvider from 'context/apisContext';
 import React from 'react';
@@ -7,13 +7,11 @@ import './App.css';
 
 function App() {
     return (
-        <Container className="p-3">
-            <Container className="p-5 mb-4 bg-light rounded-3">
-                <Title text="API Test Tool" />
-                <ApiProvider>
-                    <CardList />
-                </ApiProvider>
-            </Container>
+        <Container fluid className="p-5 bg-light rounded-5">
+            <Title text="TAPI - API Testing Tool" />
+            <ApiProvider>
+                <ApiCardList />
+            </ApiProvider>
         </Container>
     );
 }

@@ -1,11 +1,12 @@
 const fileSystem = require('fs');
+const { exit } = require('process');
 const { readFileStructure } = require('./readFolder');
 
 const ExtractedCodeInFile = 'public/all-apis.json';
 
-const writeFileContents = () => {
+const writeFileContents = (content) => {
     const fd = fileSystem.openSync(ExtractedCodeInFile, 'w');
-    fileSystem.writeSync(fd, JSON.stringify(jsonFileEntries, null, 4));
+    fileSystem.writeSync(fd, JSON.stringify(content, null, 4));
     fileSystem.closeSync(fd);
 };
 
@@ -21,8 +22,11 @@ const copyFile = (source, destination, filename) => {
 /**
  * Main
  */
-let jsonFileEntries = [];
-let counter = 0;
-readFileStructure({ jsonFileEntries, counter }, process.argv[2]);
-writeFileContents(jsonFileEntries);
+if (!process.argv[2]) {
+    console.error("Please specify path to your data folder.");
+    exit(-1);
+}
+let content = {name: '', type: 'Folder', counter: 0, entries: []};
+readFileStructure(process.argv[2], content);
+writeFileContents(content);
 copyFile(process.argv[2], 'public', 'settings.json');

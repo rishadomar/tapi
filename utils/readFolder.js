@@ -8,33 +8,51 @@ const convertFilenameToPosix = (filename) => {
     return filename.split(path.sep).join(path.posix.sep);
 };
 
+const createFolder = (counter, folderName) => {
+    let newEntry = {
+        name: convertFilenameToPosix(folderName),
+        entries: [],
+        type: 'Folder',
+        counter
+    };
+    return newEntry;
+};
+
 /**
  * Add entry
  */
-const addFile = (counter, name) => {
+const createFile = (counter, name) => {
     const posixFile = convertFilenameToPosix(name);
     const values = posixFile.split(path.posix.sep);
-    let newEntry = JSON.parse(fileSystem.readFileSync(posixFile));
-    newEntry.category = values[values.length - 2];
-    newEntry.filename = posixFile;
-    newEntry.name = values[values.length - 1].replace('.json', '');
-    newEntry.id = counter;
+    let newEntry = {
+        ...JSON.parse(fileSystem.readFileSync(posixFile)),
+        type: 'File',
+        category: values[values.length - 2],
+        filename: posixFile,
+        name: values[values.length - 1].replace('.json', ''),
+        id: counter
+    };
     return newEntry;
 };
 
 /**
  * Extract code from files in the folder
  *
- * @param {*} folder
+ * @param {*} content
  */
-const readFileStructure = (response, folder) => {
-    const dirEntries = fileSystem.readdirSync(folder, { withFileTypes: true });
+const readFileStructure = (dir, content) => {
+    const dirEntries = fileSystem.readdirSync(dir, { withFileTypes: true });
     for (let i = 0; i < dirEntries.length; i++) {
         const dirEntry = dirEntries[i];
         if (dirEntry.isDirectory()) {
-            readFileStructure(response, path.join(folder, dirEntry.name));
+            if (!dirEntry.name.startsWith('.')) {
+                const newDir = path.join(dir, dirEntry.name);
+                const newFolder = createFolder(++content.counter, dirEntry.name);
+                content.entries.push(newFolder);
+                readFileStructure(newDir, newFolder);
+            }
         } else if (dirEntry.name !== 'settings.json' && dirEntry.name.match(/.json/)) {
-            response.jsonFileEntries.push(addFile(++response.counter, path.join(folder, dirEntry.name)));
+            content.entries.push(createFile(++content.counter, path.join(dir, dirEntry.name)));
         }
     }
 };

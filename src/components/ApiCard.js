@@ -3,6 +3,8 @@ import MethodButton from 'components/MethodButton';
 import Result from 'components/Result';
 import { ApiContext } from 'context/apisContext';
 import React, { useContext, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+import { ChevronDown, ChevronUp } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
@@ -27,25 +29,58 @@ const ApiCard = ({ apiEntry }) => {
             });
     };
 
-    return (
-        <Card id={apiEntry.name.replace('.json', '')}>
-            <Card.Header><strong>{apiEntry.description}</strong>&nbsp;({apiEntry.name})</Card.Header>
-            <Card.Body>
-                <Card.Text>
-                    {apiEntry.api}
-                </Card.Text>
-                <Button variant="link" onClick={() => setOpen(!open)}>
-                    {open ? 'Collapse' : 'Show'}
-                </Button>
+    /**
+     * Render Body
+     * @returns 
+     */
+    const renderCardBody = () => {
+        return (
+            <>
+                <Card.Text>{apiEntry.api}</Card.Text>
                 <MethodButton busy={busy} onClick={execute} apiEntry={apiEntry} />
                 <Result success={apiEntry.status} />
                 {error && <Error error={error} />}
+            </>
+        );
+    };
+
+    /**
+     * Render Response section
+     * @returns 
+     */
+    const renderResponse = () => {
+        return (
+            <>
+                <Button className="mb-3 text-dark" variant="link" onClick={() => setOpen(!open)}>
+                    {open ? 'Hide response' : 'Show response'}
+                    {open ? <ChevronUp className="mx-4" /> : <ChevronDown className="mx-4" />}
+                </Button>
                 <Collapse in={open}>
-                    <div id={uniqueId}>
-                        <Json title="Expected" entry={apiEntry.expectedResponse} />
-                        {apiEntry.executeResult && <Json title="Result JSON" entry={apiEntry.executeResult} />}
-                    </div>
+                    <Container fluid id={uniqueId}>
+                        <Row>
+                            <Col>
+                                <Json title="Expected Response" entry={apiEntry.expectedResponse} />
+                            </Col>
+                            <Col>{apiEntry.executeResult && <Json title="Actual Response" entry={apiEntry.executeResult} />}</Col>
+                        </Row>
+                    </Container>
                 </Collapse>
+            </>
+        );
+    };
+
+    /**
+     * Main render
+     */
+    return (
+        <Card className="mb-4" id={apiEntry.name}>
+            <Card.Header className="text-white bg-dark">
+                {apiEntry.description}&nbsp;({apiEntry.name})
+            </Card.Header>
+            <Card.Body>
+                {renderCardBody()}
+                <hr />
+                {renderResponse()}
             </Card.Body>
         </Card>
     );

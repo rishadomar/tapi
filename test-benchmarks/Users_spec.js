@@ -1,7 +1,7 @@
 describe('Users', () => {
 	it('Setup', () => {
 		cy.visit('http://localhost:3000');
-		cy.get('[data-name=Users]').click();
+		cy.get('[data-name="Users"]').click();
 	})
 	it("Register a new user", () => {
 		cy.get('#1-registerUser').within(() => {

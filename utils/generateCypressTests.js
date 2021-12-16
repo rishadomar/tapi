@@ -1,4 +1,5 @@
 const fileSystem = require('fs');
+const { exit } = require('process');
 const { readFileStructure } = require('./readFolder');
 
 const GeneratedTestInPath = 'cypress/integration/';
@@ -6,22 +7,12 @@ const GeneratedTestInPath = 'cypress/integration/';
 /**
  * Generate 
  */
-const generateEntries = (jsonFileEntries) => {
-    let currentCategory;
-    let fileEntries = [];
-    jsonFileEntries.forEach((fileEntry) => {
-        if (!currentCategory || fileEntry.category !== currentCategory) {
-            if (currentCategory && fileEntries.length > 0) {
-                writeEntries(currentCategory, fileEntries);
-            }
-            currentCategory = fileEntry.category;
-            fileEntries = [];
+const generateEntries = (content) => {
+    content.entries.forEach((entry) => {
+        if (entry.type === 'Folder' && entry.entries.length > 0) {
+            writeEntries(entry.name, entry.entries);
         }
-        fileEntries.push(fileEntry);
     });
-    if (currentCategory && fileEntries.length > 0) {
-        writeEntries(currentCategory, fileEntries);
-    }
 };
 
 /**
@@ -29,7 +20,7 @@ const generateEntries = (jsonFileEntries) => {
  * @param {*} category 
  * @param {*} fileEntries 
  */
-const writeEntries = (category, fileEntries) => {
+const writeEntries = (name, fileEntries) => {
     const writeLine = (fd, tabs, line) => {
         let tabLine = '';
         for (let i = 0; i < tabs; i++) {
@@ -38,12 +29,18 @@ const writeEntries = (category, fileEntries) => {
         fileSystem.writeSync(fd, tabLine + line + '\n');
     }
 
-    const fd = fileSystem.openSync(`${GeneratedTestInPath}/${category}_spec.js`, 'w');
+    const nameParts = name.split('/');
+    const dir = GeneratedTestInPath + '/' + nameParts.splice(nameParts, nameParts.length - 1).join('/');
+    if (!fileSystem.existsSync(dir)){
+        fileSystem.mkdirSync(dir, { recursive: true });
+    }
+    const category = nameParts[nameParts.length - 1];
+    const fd = fileSystem.openSync(`${dir}/${category}_spec.js`, 'w');
     
-    writeLine(fd, 0, `describe('${category}', () => {`);
+    writeLine(fd, 0, `describe('${name}', () => {`);
     writeLine(fd, 1, `it('Setup', () => {`);
     writeLine(fd, 2, `cy.visit('http://localhost:3000');`);
-    writeLine(fd, 2, `cy.get('[data-name=${category}]').click();`);
+    writeLine(fd, 2, `cy.get('[data-name="${name}"]').click();`);
     writeLine(fd, 1, `})`);
         
     fileEntries.forEach(fileEntry => {
@@ -63,7 +60,10 @@ const writeEntries = (category, fileEntries) => {
 /**
  * Main
  */
-let jsonFileEntries = [];
-let counter = 0;
-readFileStructure({jsonFileEntries, counter}, process.argv[2]);
-generateEntries(jsonFileEntries);
+ if (!process.argv[2]) {
+    console.error("Please specify path to your data folder.");
+    exit(-1);
+}
+let content = {name: '', type: 'Folder', counter: 0, entries: []};
+readFileStructure(process.argv[2], content);
+generateEntries(content);

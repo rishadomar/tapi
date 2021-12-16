@@ -28,7 +28,7 @@ const ApiProvider = ({ children }) => {
                     return response.json();
                 })
                 .then(function (myJson) {
-                    setTimeout(() => dispatch({ type: 'SET_APIS', entries: myJson }), 1000);
+                    dispatch({ type: 'SET_APIS', content: myJson });
                     resolve(true);
                 })
                 .catch((error) => {
