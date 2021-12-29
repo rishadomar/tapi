@@ -155,6 +155,34 @@ const ApiProvider = ({ children }) => {
         return searchParams.toString();
     };
 
+    const codeExplanation = (code) => {
+        switch (code) {
+            case 400:
+                return 'Bad Request. Client sent an invalid request, such as lacking required request body or parameter';
+
+            case 401:
+                return 'Unauthorized. Client failed to authenticate with the server';
+
+            case 403:
+                return 'Forbidden. Client authenticated but does not have permission to access the requested resource';
+
+            case 404:
+                return 'Not Found. The requested resource does not exist';
+
+            case 412:
+                return 'Precondition Failed. One or more conditions in the request header fields evaluated to false';
+
+            case 500:
+                return 'Internal Server Error. A generic error occurred on the server';
+
+            case 503:
+                return 'Service Unavailable. The requested service is not available';
+
+            default:
+                return 'Unknown';
+        }
+    }
+
     /**
      * Execute the API
      * @param {*} entry
@@ -205,18 +233,29 @@ const ApiProvider = ({ children }) => {
             //
             // Fetch
             //
-            let apiRequestCode;
-            let apiRequestSuccess;
             fetch(url, fetchDetails)
                 .then(function (response) {
-                    console.log('Response:', response);
-                    if (response.ok || (entry.expectedResponseId && response.status == entry.expectedResponseId)) {
-                        apiRequestSuccess = true;
-                    } else {
-                        apiRequestSuccess = false;
+                    newEntryDetails.actualResponseId = response.status;
+                    
+                    if (response.ok) {
+                        // Success
+                        return response.json();
                     }
-                    apiRequestCode = response.status;
-                    return response.json();
+
+                    // Failed
+                    if (!entry.expectedResponseId || response.status != entry.expectedResponseId) {
+                        // Not expected to fail OR the failure code received was not the one that was expected.
+                        throw Error('API failed. Code: ' + newEntryDetails.actualResponseId + ' Explanation: ' + codeExplanation(newEntryDetails.actualResponseId));
+                    }
+
+                    // Failed but expected to fail with correct failure code
+                    if (entry.expectedResponse) {
+                        // Expecting some Json response
+                        return response.json();
+                    }
+
+                    // Expected failure but no JSON expected back
+                    return Promise.resolve(null);
                 })
                 .then(function (resultAsJson) {
                     newEntryDetails.api = url;
@@ -226,10 +265,7 @@ const ApiProvider = ({ children }) => {
                         testCase: entry.name,
                         resultAsJson
                     });
-                    if (apiRequestSuccess === false) {
-                        throw Error('API failed. Code: ' + apiRequestCode);
-                    }
-                    if (objectEquals(entry.expectedResponse, resultAsJson)) {
+                    if ((!resultAsJson && !entry.expectedResponse) || objectEquals(entry.expectedResponse, resultAsJson)) {
                         newEntryDetails.status = 'Success';
                         console.log('Same: ', entry.expectedResponse, resultAsJson);
                     } else {
@@ -249,7 +285,7 @@ const ApiProvider = ({ children }) => {
                         type: 'UPDATE_API',
                         updatedApiEntry: newEntryDetails
                     });
-                    reject(error.message);
+                    reject(error);
                 });
         });
     };

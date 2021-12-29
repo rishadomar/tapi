@@ -8,7 +8,6 @@ import { ChevronDown, ChevronUp } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
-import Error from './Error';
 
 const ApiCard = ({ apiEntry }) => {
     const { executeApi } = useContext(ApiContext);
@@ -38,8 +37,7 @@ const ApiCard = ({ apiEntry }) => {
             <>
                 <Card.Text>{apiEntry.api}</Card.Text>
                 <MethodButton busy={busy} onClick={execute} apiEntry={apiEntry} />
-                <Result success={apiEntry.status} />
-                {error && <Error error={error} />}
+                <Result status={apiEntry.status} error={error}/>
             </>
         );
     };
@@ -49,6 +47,16 @@ const ApiCard = ({ apiEntry }) => {
      * @returns 
      */
     const renderResponse = () => {
+        let expectedResponseTitle = "Expected Response";
+        if (apiEntry.expectedResponseId) {
+            expectedResponseTitle += ` (${apiEntry.expectedResponseId})`
+        }
+
+        let actualResponseTitle = "Actual Response";
+        if (apiEntry.actualResponseId) {
+            actualResponseTitle += ` (${apiEntry.actualResponseId})`
+        }
+
         return (
             <>
                 <Button className="mb-3 text-dark" variant="link" onClick={() => setOpen(!open)}>
@@ -59,9 +67,9 @@ const ApiCard = ({ apiEntry }) => {
                     <Container fluid id={uniqueId}>
                         <Row>
                             <Col>
-                                <Json title="Expected Response" entry={apiEntry.expectedResponse} />
+                                <Json title={expectedResponseTitle} entry={apiEntry.expectedResponse} />
                             </Col>
-                            <Col>{apiEntry.executeResult && <Json title="Actual Response" entry={apiEntry.executeResult} />}</Col>
+                            <Col><Json title={actualResponseTitle} entry={apiEntry.executeResult} /></Col>
                         </Row>
                     </Container>
                 </Collapse>

@@ -6,9 +6,13 @@ const Json = ({ title, entry }) => {
     return (
         <>
             {title && <div className="text-secondary">{title}</div>}
-            <SyntaxHighlighter language="json" style={duotoneLight}>
-                {JSON.stringify(entry, null, 4)}
-            </SyntaxHighlighter>
+            {entry ? (
+                <SyntaxHighlighter language="json" style={duotoneLight}>
+                    {JSON.stringify(entry, null, 4)}
+                </SyntaxHighlighter>
+            ) : (
+                <div>No response data</div>
+            )}
         </>
     );
 };

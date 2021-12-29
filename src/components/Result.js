@@ -1,12 +1,13 @@
 import React from 'react';
 import { Bug, CheckLg, Clock, FileDiff, Question } from 'react-bootstrap-icons';
 import Badge from 'react-bootstrap/Badge';
+import Error from './Error';
 
-const Result = ({ success }) => {
+const Result = ({ status, error }) => {
     let bg;
     let icon;
 
-    switch (success) {
+    switch (status) {
         case 'Busy':
             icon = <Clock className="mx-3" />;
             bg = 'info';
@@ -33,13 +34,14 @@ const Result = ({ success }) => {
             break;
     }
 
-    if (success) {
+    if (status) {
         return (
             <>
                 {icon}
                 <Badge className="p-2" data-cy="result" pill bg={bg}>
-                    {success}
+                    {status}
                 </Badge>
+                {error && <Error error={error} />}
             </>
         );
     } else {
